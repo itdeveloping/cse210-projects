@@ -10,4 +10,11 @@ public class Resume
 
     public string _personName;
     public List<Job> jobs = new List<Job>();
+    //Add a Display method to the Resume class
+    public void Display(){
+        foreach (var jobs in JobList)
+        {
+            Console.WriteLine(JobList[0]);
+        }
+    }
 }
