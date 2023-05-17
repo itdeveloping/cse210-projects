@@ -14,37 +14,41 @@ class Program
         string answer;
         string fileName;
         FileManager fileManager = new FileManager();
-
         Journal journal = new Journal();
+
+        //create an instance for the menu
         Program p = new Program();
+        Entry entry = new Entry();
+
+        //display menu option
         int Option = p.Menu();
+        
         while (Option != 5)
         {
             switch (Option)
             {
-                case 1:
+                case 1: //1. Write
                     PromptGenerator _promptGenerator = new PromptGenerator();
                     prompt = _promptGenerator.DisplayPrompt();
                     Console.WriteLine(prompt);
                     answer = Console.ReadLine();
-                    journal.JournalWriting(prompt, answer);
-
+                    entry.Writing(prompt, answer);
                     break;
-                case 2:
+                case 2: //2. Display
                     Console.WriteLine("Entries you typed: ");
-                    journal.JournalDisplay();
+                    journal.JournalDisplay(entry.EntryArray);
                     break;
-                case 3:
+                case 3: //3. Load
                     Console.WriteLine("Enter the file name you want to load: ");
                     fileName = Console.ReadLine();
-                    journal.EntryArray = fileManager.ReadFile(fileName);
+                    entry.EntryArray = fileManager.ReadFile(fileName);
                     break;
-                case 4:
+                case 4: //4. Save
                     Console.WriteLine("Enter the file name for your journal: ");
                     fileName = Console.ReadLine();
-                    fileManager.SaveFile(fileName, journal.EntryArray);
+                    fileManager.SaveFile(fileName, entry.EntryArray);
                     break;
-                case 5:
+                case 5: //5. Quit
                     Console.WriteLine("Thank you for using our systems!");
                     break;
                 default:

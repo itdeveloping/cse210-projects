@@ -9,12 +9,12 @@ public class Resume
 {
 
     public string _personName;
-    public List<Job> jobs = new List<Job>();
+    public List<Job> _jobs = new List<Job>();
     //Add a Display method to the Resume class
     public void Display(){
-        foreach (var jobs in JobList)
+        foreach (var Joblist in _jobs)
         {
-            Console.WriteLine(JobList[0]);
+            Console.WriteLine(Joblist);
         }
     }
 }
