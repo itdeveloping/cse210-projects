@@ -3,7 +3,7 @@ using System.Collections;
 public class FileManager
 {
     string _fileName;
-    public List<Entry> _entryArray = new List<Entry>();
+    public ArrayList _entryArray = new ArrayList();
     public void SaveFile(string fileName)
     {
         _fileName = fileName;
@@ -21,10 +21,9 @@ public class FileManager
         foreach (string line in lines)
         {
             string[] parts = line.Split("|");
-            //_entryArray.Add(parts[0] + "|" + parts[1] + "|" + parts[2]);
+            _entryArray.Add(parts[0] + "|" + parts[1] + "|" + parts[2]);
 
         }
-        //return _entryArray;
     }
 
 }
