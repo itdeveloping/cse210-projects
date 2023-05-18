@@ -12,7 +12,7 @@ public Entry(string prompt,string answer )
     _prompt=prompt;
     _answer=answer;
     DateTime currentDateTime = DateTime.Now;
-    this._date = currentDateTime.toString(); 
+    this._date = currentDateTime.ToString(); 
 }
 public string DisplayString()
 {

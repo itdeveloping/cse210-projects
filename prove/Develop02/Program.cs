@@ -10,15 +10,24 @@ class Program
 
     static void Main(string[] args)
     {
-
+        string prompt;
+        string answer;
+        string fileName;
+        int Option;
         FileManager fileManager = new FileManager();
         Journal journal = new Journal();
 
         PromptGenerator _promptGenerator = new PromptGenerator();
 
         //display menu option
-        int Option = p.Menu();
-        
+        Console.WriteLine("Please select one of the following choices:");
+        Console.WriteLine("1. Write");
+        Console.WriteLine("2. Display");
+        Console.WriteLine("3. Load");
+        Console.WriteLine("4. Save");
+        Console.WriteLine("5. Quit");
+        Console.Write("What would you like to do? ");
+        Option = Convert.ToInt32(Console.ReadLine());
         while (Option != 5)
         {
             switch (Option)
@@ -37,12 +46,10 @@ class Program
                 case 3: //3. Load
                     Console.WriteLine("Enter the file name you want to load: ");
                     fileName = Console.ReadLine();
-                    entry.EntryArray = fileManager.ReadFile(fileName);
                     break;
                 case 4: //4. Save
                     Console.WriteLine("Enter the file name for your journal: ");
                     fileName = Console.ReadLine();
-                    fileManager.SaveFile(fileName, entry.EntryArray);
                     break;
                 case 5: //5. Quit
                     Console.WriteLine("Thank you for using our systems!");
@@ -51,7 +58,14 @@ class Program
                     Console.WriteLine("----------------------This is not a valid option.");
                     break;
             }
-            Option = p.Menu();
+            Console.WriteLine("Please select one of the following choices:");
+            Console.WriteLine("1. Write");
+            Console.WriteLine("2. Display");
+            Console.WriteLine("3. Load");
+            Console.WriteLine("4. Save");
+            Console.WriteLine("5. Quit");
+            Console.Write("What would you like to do? ");
+            Option = Convert.ToInt32(Console.ReadLine());
         }
 
         /*
@@ -62,18 +76,7 @@ class Program
         entry._date = currentDateTime;
         entry.DisplayEntry();*/
     }
-    public int Menu()
-    {
-        Console.WriteLine("Please select one of the following choices:");
-        Console.WriteLine("1. Write");
-        Console.WriteLine("2. Display");
-        Console.WriteLine("3. Load");
-        Console.WriteLine("4. Save");
-        Console.WriteLine("5. Quit");
-        Console.Write("What would you like to do? ");
-        int Option = Convert.ToInt32(Console.ReadLine());
-        return Option;
-    }
+
 }
 
 

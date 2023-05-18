@@ -1,7 +1,7 @@
 using System.Collections;
 public class Journal
 {
-    public List<Entry> entryList = new List<Entry>;
+    public List<Entry> entryList = new List<Entry>();
 
     public void JournalDisplay()
     {
