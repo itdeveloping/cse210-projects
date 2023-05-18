@@ -33,6 +33,7 @@ public class Fraction
     {
         _top = top;
     }
+    
     public void GetBottom()
     {
         Console.WriteLine(_bottom);
