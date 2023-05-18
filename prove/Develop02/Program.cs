@@ -14,7 +14,7 @@ class Program
         string answer;
         string fileName;
         int Option;
-        FileManager fileManager = new FileManager();
+        FileManager _fileManager = new FileManager();
         Journal journal = new Journal();
 
         PromptGenerator _promptGenerator = new PromptGenerator();
@@ -46,10 +46,12 @@ class Program
                 case 3: //3. Load
                     Console.WriteLine("Enter the file name you want to load: ");
                     fileName = Console.ReadLine();
+                    _fileManager.LoadFile(fileName);
                     break;
                 case 4: //4. Save
                     Console.WriteLine("Enter the file name for your journal: ");
                     fileName = Console.ReadLine();
+                    _fileManager.SaveFile(fileName);
                     break;
                 case 5: //5. Quit
                     Console.WriteLine("Thank you for using our systems!");

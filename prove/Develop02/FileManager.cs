@@ -3,28 +3,28 @@ using System.Collections;
 public class FileManager
 {
     string _fileName;
-    public ArrayList EntryArray = new ArrayList();
-    public void SaveFile(string fileName, ArrayList entryArray)
+    public List<Entry> _entryArray = new List<Entry>();
+    public void SaveFile(string fileName)
     {
         this._fileName = fileName;
         using (StreamWriter outputFile = new StreamWriter(this._fileName))
         {
-            foreach (object element in entryArray)
+            foreach (object element in _entryArray)
             {
                 outputFile.WriteLine(element);
             }
         }
     }
-    public ArrayList ReadFile(string filename)
+    public void LoadFile(string filename)
     {
         string[] lines = System.IO.File.ReadAllLines(filename);
         foreach (string line in lines)
         {
             string[] parts = line.Split("|");
-            EntryArray.Add(parts[0] + "|" + parts[1] + "|" + parts[2]);
+            //_entryArray.Add(parts[0] + "|" + parts[1] + "|" + parts[2]);
 
         }
-        return EntryArray;
+        //return _entryArray;
     }
 
 }
