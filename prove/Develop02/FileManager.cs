@@ -6,10 +6,10 @@ public class FileManager
     public List<Entry> _entryArray = new List<Entry>();
     public void SaveFile(string fileName)
     {
-        this._fileName = fileName;
+        _fileName = fileName;
         using (StreamWriter outputFile = new StreamWriter(this._fileName))
         {
-            foreach (object element in _entryArray)
+            foreach (Entry element in _entryArray)
             {
                 outputFile.WriteLine(element);
             }
