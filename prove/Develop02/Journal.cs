@@ -1,15 +1,19 @@
 using System.Collections;
 public class Journal
 {
-    public ArrayList entryList = new ArrayList();
+    public List<Entry> entryList = new List<Entry>;
 
-    public void JournalDisplay(ArrayList entryList)
+    public void JournalDisplay()
     {
-        foreach (string i in entryList)
+        foreach (Entry i in entryList)
         {
-            Console.WriteLine("{0} ", i);
+            Console.WriteLine(i.DisplayString());
         }
 
+    }
+    public void AddEntry(Entry entry)
+    {
+        entryList.Add(entry);
     }
 
 }

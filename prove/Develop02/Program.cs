@@ -10,15 +10,11 @@ class Program
 
     static void Main(string[] args)
     {
-        string prompt;
-        string answer;
-        string fileName;
+
         FileManager fileManager = new FileManager();
         Journal journal = new Journal();
 
-        //create an instance for the menu
-        Program p = new Program();
-        Entry entry = new Entry();
+        PromptGenerator _promptGenerator = new PromptGenerator();
 
         //display menu option
         int Option = p.Menu();
@@ -28,15 +24,15 @@ class Program
             switch (Option)
             {
                 case 1: //1. Write
-                    PromptGenerator _promptGenerator = new PromptGenerator();
                     prompt = _promptGenerator.DisplayPrompt();
                     Console.WriteLine(prompt);
                     answer = Console.ReadLine();
-                    entry.Writing(prompt, answer);
+                    Entry entry = new Entry(prompt, answer);
+                    journal.AddEntry(entry);
                     break;
                 case 2: //2. Display
                     Console.WriteLine("Entries you typed: ");
-                    journal.JournalDisplay(entry.EntryArray);
+                    journal.JournalDisplay();
                     break;
                 case 3: //3. Load
                     Console.WriteLine("Enter the file name you want to load: ");
