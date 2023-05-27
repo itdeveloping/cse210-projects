@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -8,7 +9,8 @@ class Program
         string name = estudiante.GetName();
         string Id = estudiante.GetId();
         Console.WriteLine(name);
-        Console.WriteLine(Id);
+        Console.WriteLine(Id); 
+        
 
     }
 }
