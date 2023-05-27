@@ -2,9 +2,9 @@ public class Scripture
 {
     private int _wordListCount;
     private int _random;
+    private int _counter;
     private Reference _reference;
     private List<string> _verse = new List<string>();
-    private List<bool> _listIsVisible = new List<bool>();
     private int _wordsToHide;
     public Scripture(Reference reference, Word word, int WordsToHide)
     {
@@ -15,7 +15,7 @@ public class Scripture
     public bool IsFinish(Word word)
     {
 
-        int _counter = 0;
+        _counter = 0;
         foreach (string item in word._wordList)
         {
             if (item.Trim() != "") _counter += 1;
@@ -41,14 +41,17 @@ public class Scripture
     private void SetVisibility(Word word)
     {
         _wordListCount = word.ListCount();
-        int _counter = _wordsToHide;
+        _counter = _wordsToHide;
 
         while (_counter >= 1)
         {
             Random rnd = new Random();
-            int _random = rnd.Next(0, _wordListCount);
-            word.HideWord(_random);
-            _counter -= 1;
+            _random = rnd.Next(0, _wordListCount);
+            while (word.getIsVisible(_random))
+            {
+                word.HideWord(_random);
+                _counter -= 1;
+            }
             // Console.WriteLine(_random);
         }
     }

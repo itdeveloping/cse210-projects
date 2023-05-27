@@ -5,9 +5,13 @@ public class Word
     {
 
     }
-    public bool getIsVisible()
+    public bool getIsVisible(int Index)
     {
-        return true;
+        string _OneWord = _wordList[Index].Trim();
+        if (_OneWord != "")
+            return true;
+        else
+            return false;
     }
     public void SetIsVisible(bool isVisible)
     {
@@ -15,19 +19,17 @@ public class Word
     }
     public void HideWord(int Index)
     {
-        string _OneWord = _wordList[Index];
 
-
-        int _wordLength = _wordList[Index].Length;
-        string space = "";
-        while (_wordLength >= 1)
-        {
-            space += " ";
-            _wordLength -= 1;
-        }
-        _wordList[Index] = space;
+            int _wordLength = _wordList[Index].Length;
+            string space = "";
+            while (_wordLength >= 1)
+            {
+                space += " ";
+                _wordLength -= 1;
+            }
+            _wordList[Index] = space;
+        
     }
-
     public string WordToString()
     {
         string parsedWord = "";
