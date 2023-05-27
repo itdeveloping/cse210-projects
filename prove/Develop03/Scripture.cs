@@ -29,22 +29,27 @@ public class Scripture
     {
         int _counter = _wordsToHide;
         bool found;
-        int _ranInt;
+        int ranInt;
+        bool foundWhole;
         while (_counter >= 1)
         {
-            found =false;
+            found = false;
+            foundWhole = false;
             while (!found)
             {
-                _ranInt = _random.Next(verse.Count);
-                if (verse[_ranInt].getIsVisible() == true)
+                ranInt = _random.Next(verse.Count);
+                if (verse[ranInt].getIsVisible() == true)
                 {
-                    verse[_ranInt].SetIsVisible(false);
+                    verse[ranInt].SetIsVisible(false);
                     found = true;
                     _counter -= 1;
+                    foundWhole = true;
                 }
                 else
-                 _counter=0;
+                _counter = 0;
+
             }
+
         }
     }
     private void ParseScripture(string scripture)
@@ -61,7 +66,7 @@ public class Scripture
     {
         //calls the SetVisibility function to randomly hide a word
         if (!begin) SetVisibility();
-        string _string="";
+        string _string = "";
         //create a string variable to add reference and verse in order to output the whole scripture
         _string = _reference.ReferenceToString() + " ";
         foreach (Word word in verse)

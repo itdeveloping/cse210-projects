@@ -17,10 +17,10 @@ class Program
     /*And it came to pass that I, Nephi, said unto my father: I will go and do the things which the Lord hath commanded, for I know that the Lord giveth no commandments unto the children of men, save he shall prepare a way for them that they may accomplish the thing which he commandeth them.*/
     static void Main(string[] args)
     {
-        string escritura = "And it came to pass that I, Nephi, said unto my father: I will go and do the things which the Lord hath commanded, for I know that the Lord giveth no commandments unto the children of men, save he shall prepare a way for them that they may accomplish the thing which he commandeth them.";
+        string escritura = "1 Nephi 3:7 And it came to pass that I, Nephi, said unto my father: I will go and do the things which the Lord hath commanded, for I know that the Lord giveth no commandments unto the children of men, save he shall prepare a way for them that they may accomplish the thing which he commandeth them.";
         Console.Clear();
         Console.WriteLine("Hello and welcome to Scripture Memorizer program!");
-        Console.WriteLine($"\nThe scripture you are goind to memorize is {escritura}.");
+        Console.WriteLine($"\nThe scripture you are trying to memorize is: \n{escritura}.");
         Console.Write("\nHow many word do you want me to hide: (1-5)");
         string _wordsToHideStr = Console.ReadLine();
         int _countWords = Int32.Parse(_wordsToHideStr);
@@ -30,9 +30,7 @@ class Program
              _wordsToHideStr = Console.ReadLine();
              _countWords = Int32.Parse(_wordsToHideStr);
         }
-
         Console.Clear();
-
         Reference reference = new Reference("1 Nephi", "3", "7");
         Scripture scripture = new Scripture(escritura, reference, _countWords);
         Console.WriteLine(scripture.ScriptureToString(true));
