@@ -16,12 +16,15 @@ public class Word
     }
     public void SetIsVisible(bool isVisible)
     {
-        _isVisible=isVisible;
+        _isVisible = isVisible;
     }
 
     public string WordToString()
     {
-        return _word;
+        if (getIsVisible())
+            return _word;
+        else
+            return new String('_', _word.Length);        
     }
 
 }

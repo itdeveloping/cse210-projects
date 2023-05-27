@@ -56,58 +56,17 @@ public class Scripture
             verse.Add(word);
         }
     }
-    public string ScriptureToString()
+    public string ScriptureToString(bool begin)
     {
         //calls the SetVisibility function to randomly hide a word
-
-        if (IsFinish() == false)
-            SetVisibility();
+        if (!begin) SetVisibility();
+        string _string="";
         //create a string variable to add reference and verse in order to output the whole scripture
-        string _string = _reference.ReferenceToString() + " ";
-
+        _string = _reference.ReferenceToString() + " ";
         foreach (Word word in verse)
         {
-            if (word.getIsVisible() == true)
-                _string += word.WordToString() + " ";
-            else
-            {
-                int _counter = word.WordToString().Length;
-                while (_counter >= 1)
-                {
-                    _string += " ";
-                    _counter -= 1;
-                }
-                _string += " ";
-            }
-
+            _string += word.WordToString() + " ";
         }
-
         return _string;
     }
-    public string ScriptToString()
-    {
-        //create a string variable to add reference and verse in order to output the whole scripture
-        string _string = _reference.ReferenceToString() + " ";
-
-        foreach (Word word in verse)
-        {
-            if (word.getIsVisible() == true)
-                _string += word.WordToString() + " ";
-            else
-            {
-                int _counter = word.WordToString().Length;
-                while (_counter >= 1)
-                {
-                    _string += " ";
-                    _counter -= 1;
-                }
-                _string += " ";
-
-            }
-
-        }
-
-        return _string;
-    }
-
 }
