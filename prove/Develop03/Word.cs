@@ -1,50 +1,27 @@
 public class Word
 {
-    public List<string> _wordList = new List<string>();
-    public Word()
+    private bool _isVisible;
+    private string _word;
+    public Word(string word)
     {
-
+        _word = word;
+        _isVisible = true;
     }
-    public bool getIsVisible(int Index)
+    public bool getIsVisible()
     {
-        string _OneWord = _wordList[Index].Trim();
-        if (_OneWord != "")
+        if (_isVisible == true)
             return true;
         else
             return false;
     }
     public void SetIsVisible(bool isVisible)
     {
-
+        _isVisible=isVisible;
     }
-    public void HideWord(int Index)
-    {
 
-            int _wordLength = _wordList[Index].Length;
-            string space = "";
-            while (_wordLength >= 1)
-            {
-                space += " ";
-                _wordLength -= 1;
-            }
-            _wordList[Index] = space;
-        
-    }
     public string WordToString()
     {
-        string parsedWord = "";
-        foreach (string item in _wordList)
-        {
-            parsedWord += item + " ";
-        }
-        return parsedWord;
+        return _word;
     }
-    public void SetWord(string word)
-    {
-        _wordList.Add(word);
-    }
-    public int ListCount()
-    {
-        return _wordList.Count;
-    }
+
 }

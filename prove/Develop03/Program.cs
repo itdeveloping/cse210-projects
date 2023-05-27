@@ -17,39 +17,31 @@ class Program
     /*And it came to pass that I, Nephi, said unto my father: I awill go and do the things which the Lord hath commanded, for I know that the Lord giveth no bcommandments unto the children of men, save he shall cprepare a way for them that they may accomplish the thing which he commandeth them.*/
     static void Main(string[] args)
     {
-        string escritura = "And it came to pass that I, Nephi, said unto my father";
-        List<string> result = escritura.Split(' ').ToList();
+        string escritura = "And it came to pass that I, Nephi, said unto my father: I awill go and do the things which the Lord hath commanded, for I know that the Lord giveth no bcommandments unto the children of men, save he shall cprepare a way for them that they may accomplish the thing which he commandeth them.";
 
-        Word word = new Word();
-
-        foreach (string item in result)
-        {
-            word.SetWord(item);
-        }
         Console.Clear();
-        Reference reference = new Reference("1 Nephi", "3", "7");
-        Scripture scripture = new Scripture(reference, word, 2);
-        Console.WriteLine(scripture.ParseScripture());
-        bool _isFinished = scripture.IsFinish(word);
 
+        Reference reference = new Reference("1 Nephi", "3", "7");
+
+        Scripture scripture = new Scripture(escritura, reference, 2);
+
+        Console.WriteLine(scripture.ScriptToString());
+        Console.WriteLine();
         Console.Write("Hit enter to continue or quit to finish...");
         string input = Console.ReadLine();
         while (input.ToUpper() != "QUIT")
         {
             Console.Clear();
-            Console.WriteLine(scripture.ParseScripture());
-            _isFinished = scripture.IsFinish(word);
-            if (!_isFinished)
+            Console.WriteLine(scripture.ScriptureToString());
+            if (scripture.IsFinish())
+                input = "quit";
+            else
             {
+                Console.WriteLine();
                 Console.Write("Hit enter to continue or quit to finish...");
                 input = Console.ReadLine();
             }
-            else
-                break;
-
         }
-
         Console.WriteLine("You did it! Congratulations!");
-
     }
 }

@@ -1,58 +1,113 @@
 public class Scripture
 {
-    private int _wordListCount;
-    private int _random;
-    private int _counter;
+    private Random _random = new Random();
+
     private Reference _reference;
-    private List<string> _verse = new List<string>();
+    private List<Word> verse = new List<Word>();
     private int _wordsToHide;
-    public Scripture(Reference reference, Word word, int WordsToHide)
+
+    public bool IsFinish()
+    {
+        int _finish = 0;
+        foreach (Word word in verse)
+        {
+            if (word.getIsVisible() == true)
+                _finish += 1;
+        }
+        if (_finish == 0)
+            return true;
+        else
+            return false;
+    }
+    public Scripture(string scripture, Reference reference, int WordsToHide)
     {
         _reference = reference;
-        _verse = word._wordList;
         _wordsToHide = WordsToHide;
+        ParseScripture(scripture);
     }
-    public bool IsFinish(Word word)
+    private void SetVisibility()
     {
-
-        _counter = 0;
-        foreach (string item in word._wordList)
-        {
-            if (item.Trim() != "") _counter += 1;
-        }
-        if (_counter != 0)
-        {
-            SetVisibility(word);
-            return false;
-        }
-        else
-            return true;
-    }
-    public string ParseScripture()
-    {
-
-        string parsedScripture = _reference.ReferenceToString() + " ";
-        foreach (string item in _verse)
-        {
-            parsedScripture += item + " ";
-        }
-        return parsedScripture;
-    }
-    private void SetVisibility(Word word)
-    {
-        _wordListCount = word.ListCount();
-        _counter = _wordsToHide;
-
+        int _counter = _wordsToHide;
+        int _found = 0;
+        int _ranInt;
         while (_counter >= 1)
         {
-            Random rnd = new Random();
-            _random = rnd.Next(0, _wordListCount);
-            while (word.getIsVisible(_random))
+            _found = 0;
+            while (_found == 0)
             {
-                word.HideWord(_random);
-                _counter -= 1;
+                //Console.WriteLine(_random.Next(0, verse.Count));
+                _ranInt = _random.Next(0, verse.Count);
+                if (verse[_ranInt].getIsVisible() == true)
+                {
+                    verse[_ranInt].SetIsVisible(false);
+                    _found = 1;
+                    _counter -= 1;
+                }
             }
-            // Console.WriteLine(_random);
         }
     }
+    private void ParseScripture(string scripture)
+    {
+        List<string> wordList = scripture.Split(' ').ToList();
+
+        foreach (string item in wordList)
+        {
+            Word word = new Word(item);
+            verse.Add(word);
+        }
+    }
+    public string ScriptureToString()
+    {
+        //calls the SetVisibility function to randomly hide a word
+
+        if (IsFinish() == false)
+            SetVisibility();
+        //create a string variable to add reference and verse in order to output the whole scripture
+        string _string = _reference.ReferenceToString() + " ";
+
+        foreach (Word word in verse)
+        {
+            if (word.getIsVisible() == true)
+                _string += word.WordToString() + " ";
+            else
+            {
+                int _counter = word.WordToString().Length;
+                while (_counter >= 1)
+                {
+                    _string += " ";
+                    _counter -= 1;
+                }
+                _string += " ";
+            }
+
+        }
+
+        return _string;
+    }
+    public string ScriptToString()
+    {
+        //create a string variable to add reference and verse in order to output the whole scripture
+        string _string = _reference.ReferenceToString() + " ";
+
+        foreach (Word word in verse)
+        {
+            if (word.getIsVisible() == true)
+                _string += word.WordToString() + " ";
+            else
+            {
+                int _counter = word.WordToString().Length;
+                while (_counter >= 1)
+                {
+                    _string += " ";
+                    _counter -= 1;
+                }
+                _string += " ";
+
+            }
+
+        }
+
+        return _string;
+    }
+
 }
