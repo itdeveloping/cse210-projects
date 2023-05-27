@@ -28,21 +28,22 @@ public class Scripture
     private void SetVisibility()
     {
         int _counter = _wordsToHide;
-        int _found = 0;
+        bool found;
         int _ranInt;
         while (_counter >= 1)
         {
-            _found = 0;
-            while (_found == 0)
+            found =false;
+            while (!found)
             {
-                //Console.WriteLine(_random.Next(0, verse.Count));
-                _ranInt = _random.Next(0, verse.Count);
+                _ranInt = _random.Next(verse.Count);
                 if (verse[_ranInt].getIsVisible() == true)
                 {
                     verse[_ranInt].SetIsVisible(false);
-                    _found = 1;
+                    found = true;
                     _counter -= 1;
                 }
+                else
+                 _counter=0;
             }
         }
     }
