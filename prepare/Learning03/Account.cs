@@ -1,6 +1,5 @@
 public class Account
 {
-
     private int _balance;
     private List<int> _transactions = new List<int>();
     public Account()
@@ -11,18 +10,16 @@ public class Account
     {
         foreach (int item in _transactions)
         {
-            _balance+=item;
+            _balance += item;
         }
         return _balance;
-    }
-    public void SetBalance(int Amount){
-        _balance = Amount;
     }
     public void Deposit(int amount)
     {
         _transactions.Add(amount);
     }
-    public List<int> GetTransactionsList(){
+    public List<int> GetTransactionsList()
+    {
         return _transactions;
     }
 }

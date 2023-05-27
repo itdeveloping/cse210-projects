@@ -40,7 +40,6 @@ class Program
         Console.Clear();
         Account account = new Account();
         List<int> transactionsList = new List<int>();
-        account.SetBalance(0);
         Console.Write("Enter the amount to deposit: ");
         string _input = Console.ReadLine();
         int Amount = Int32.Parse(_input);
@@ -60,7 +59,7 @@ class Program
         }
         //Console.WriteLine(account._transactions);
         int balance = account.getBalance();
-        Console.WriteLine($"Yo have a balance of: ${balance} in your bank account.");
+        Console.WriteLine($"You have a balance of: ${balance} in your bank account.");
         Console.WriteLine("End of the program.");
         Console.Write("Hit enter to continue...");
 
