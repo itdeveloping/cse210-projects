@@ -30,11 +30,9 @@ public class Scripture
         int _counter = _wordsToHide;
         bool found;
         int ranInt;
-        bool foundWhole;
         while (_counter >= 1)
         {
             found = false;
-            foundWhole = false;
             while (!found)
             {
                 ranInt = _random.Next(verse.Count);
@@ -43,7 +41,6 @@ public class Scripture
                     verse[ranInt].SetIsVisible(false);
                     found = true;
                     _counter -= 1;
-                    foundWhole = true;
                 }
                 else
                 _counter = 0;
