@@ -27,26 +27,30 @@ public class Scripture
     }
     private void SetVisibility()
     {
-        int _counter = _wordsToHide;
+        int outerCounter = _wordsToHide;
         bool found;
-        int ranInt;
-        while (_counter >= 1)
+        int randomNumber;
+        while (outerCounter >= 1)
         {
             found = false;
             while (!found)
             {
-                ranInt = _random.Next(verse.Count);
-                if (verse[ranInt].getIsVisible() == true)
+                int innerCounter = 1;
+                while (innerCounter <= verse.Count)
                 {
-                    verse[ranInt].SetIsVisible(false);
-                    found = true;
-                    _counter -= 1;
+                    randomNumber = _random.Next(verse.Count);
+                    if (verse[randomNumber].getIsVisible() == true)
+                    {
+                        verse[randomNumber].SetIsVisible(false);
+                        found = true;
+                        innerCounter = verse.Count + 1;
+                    }
+                    else innerCounter += 1;
+                    if (innerCounter > verse.Count && !found) found = true;
+                    if (innerCounter > verse.Count) found = true;
                 }
-                else
-                _counter = 0;
-
             }
-
+            outerCounter -= 1;
         }
     }
     private void ParseScripture(string scripture)
