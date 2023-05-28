@@ -21,7 +21,7 @@ class Program
         Console.Clear();
         Console.WriteLine("Hello and welcome to Scripture Memorizer program!");
         Console.WriteLine($"\nThe scripture you are trying to memorize is: \n{escritura}.");
-        Console.Write("\nHow many word do you want me to hide: (1-5)");
+        Console.Write("\nHow many words do you want me to hide: (1-5)");
         string _wordsToHideStr = Console.ReadLine();
         int _countWords = Int32.Parse(_wordsToHideStr);
         while (_countWords < 1 || _countWords > 5)
