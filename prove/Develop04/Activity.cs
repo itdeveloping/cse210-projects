@@ -3,35 +3,62 @@ public class Activity
     protected string _activityName;
     protected string _description;
     protected int _duration;
-
     public Activity(string activityName, string description)
     {
         _activityName = activityName;
         _description = description;
     }
+
     public void displayStartingMessage()
     {
+        Console.Clear();
         Console.WriteLine($"Welcome to {_activityName}");
         Console.WriteLine($"\n{_description}");
-        Console.Write("\nHow long, in seconds, would you like for your sessions? ");
-        Console.ReadLine();
+
     }
     public void displayEndingMessage()
     {
-
+        Console.WriteLine("\nWell done...");
+        showSpinner(3);
+        Console.WriteLine($"\nYou have completed another {_duration} seconds of {_activityName}");
+        showSpinner(4);
     }
 
-    public void GetDuration(int duration)
+    public int GetDuration()
     {
-
+        return _duration;
     }
 
-    public void showSpinner()
+    public void showSpinner(int seconds)
     {
+        while (seconds >= 1)
+        {
+            Console.Write("|");
+            Thread.Sleep(250);
+            Console.Write("\b \b"); 
+            Console.Write("/");       
+            Thread.Sleep(250);
+            Console.Write("\b \b"); 
+            Console.Write("-");      
+            Thread.Sleep(250);
+            Console.Write("\b \b"); 
+            Console.Write("\\"); 
+            Thread.Sleep(250);
+            Console.Write("\b \b"); 
+            seconds -= 1;
+        }
+    Console.WriteLine();
     }
-    public void showCountdown()
+    public void showCountdown(int seconds)
     {
-
+        while (seconds >= 1)
+        {
+            Console.Write(seconds);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+            seconds -= 1;
+        }
+        Console.WriteLine();
     }
 
 }

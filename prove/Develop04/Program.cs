@@ -17,7 +17,7 @@ public class Program
             {
                 case 1:
                     Breathing breathing = new Breathing("Breathing activity", "This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.");
-                    breathing.displayStartingMessage();
+                    breathing.Run();
                     break;
                 default:
                     break;
