@@ -14,7 +14,7 @@ class Menu {
         {
             Console.WriteLine(option);
         }
-        Console.Write("Select a choince from the menu: ");
+        Console.Write("Select a choice from the menu: ");
     }
     public int SelectedOption(string option)
     {

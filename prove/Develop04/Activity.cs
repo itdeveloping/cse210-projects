@@ -14,7 +14,12 @@ public class Activity
         Console.Clear();
         Console.WriteLine($"Welcome to {_activityName}");
         Console.WriteLine($"\n{_description}");
-
+        Console.Write("\nHow long, in seconds, would you like for your sessions? ");
+        string strSeconds = Console.ReadLine();
+        _duration = Int32.Parse(strSeconds);
+        Console.Clear();
+        Console.WriteLine("\nGet ready...");
+        showSpinner(5);
     }
     public void displayEndingMessage()
     {
@@ -35,19 +40,19 @@ public class Activity
         {
             Console.Write("|");
             Thread.Sleep(250);
-            Console.Write("\b \b"); 
-            Console.Write("/");       
+            Console.Write("\b \b");
+            Console.Write("/");
             Thread.Sleep(250);
-            Console.Write("\b \b"); 
-            Console.Write("-");      
+            Console.Write("\b \b");
+            Console.Write("-");
             Thread.Sleep(250);
-            Console.Write("\b \b"); 
-            Console.Write("\\"); 
+            Console.Write("\b \b");
+            Console.Write("\\");
             Thread.Sleep(250);
-            Console.Write("\b \b"); 
+            Console.Write("\b \b");
             seconds -= 1;
         }
-    Console.WriteLine();
+        Console.WriteLine();
     }
     public void showCountdown(int seconds)
     {
