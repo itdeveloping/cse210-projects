@@ -12,7 +12,7 @@ public class Activity
     public void displayStartingMessage()
     {
         Console.Clear();
-        Console.WriteLine($"Welcome to {_activityName}");
+        Console.WriteLine($"Welcome to {_activityName}!");
         Console.WriteLine($"\n{_description}");
         Console.Write("\nHow long, in seconds, would you like for your sessions? ");
         string strSeconds = Console.ReadLine();

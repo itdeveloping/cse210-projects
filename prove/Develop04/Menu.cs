@@ -1,23 +1,26 @@
-class Menu {
+class Menu
+{
+    //atribute for Menu class
     List<string> _option = new List<string>();
-    public Menu ()
+
+    //constructor of Menu class
+    public Menu()
     {
-        _option.Add("1.- Start Breathing Activity");
-        _option.Add("2.- Start Reflection Activity");
-        _option.Add("3.- Start Listing Activity");
-        _option.Add("4.- Quit");
+        // read all options from Menu.txt text file to fill _option list
+        string[] option = File.ReadAllLines("Menu.txt");
+        foreach (string line in option)
+            _option.Add($"--- {line} ---");
     }
-    public void DisplayMenu(){
+    //method to show the menu in screen
+    public void DisplayMenu()
+    {
         Console.Clear();
-        Console.WriteLine("Menu options:");
+        Console.WriteLine("Unit 04 Develop: Mindfulness Program\r\n");
+        Console.WriteLine("Menu options:\r\n");
         foreach (string option in _option)
         {
             Console.WriteLine(option);
         }
-        Console.Write("Select a choice from the menu: ");
-    }
-    public int SelectedOption(string option)
-    {
-        return Int32.Parse(option);
+        Console.Write("\r\nSelect a choice from the menu: ");
     }
 }
