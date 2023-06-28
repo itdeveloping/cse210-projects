@@ -11,6 +11,8 @@ namespace Develop05
         protected string _name;
         protected string _description;
         protected int _points;
+        protected bool _isCompleted;
+
         public Goal(string name, string description, int points)
         {
             _name = name;
@@ -19,7 +21,16 @@ namespace Develop05
         }
         public override string ToString()
         {
-            return _name+_description+_points;
+
+            if (_isCompleted)
+                return $"[x]{_name} {_description}";
+            else
+                return $"[ ]{_name} {_description}";
+
+        }
+        public virtual int RecordEvent()
+        {
+            return _points;
         }
     }
 }

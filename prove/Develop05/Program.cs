@@ -25,48 +25,70 @@ class Program
 
         MainMenu mainMenu = new("Menu Options", mainMenuOptions, "Select a choice from the menu: ");
         GoalMenu goalMenu = new("The types of goals are:", goalMenuOptions, "Which type of goals you would like to create? ");
+        Goal goal=null;
+
+        List<Goal> goals = new List<Goal>();
 
         selectedMainOption = mainMenu.Show();
         while (selectedMainOption != 6)
         {
             switch (selectedMainOption) // options for Main Menu
             {
+
                 case 1:
                     selectedGoalOption = goalMenu.Show();
                     while (selectedGoalOption != 4)
                     {
+
+                        Console.Write("What is the name of your Goal? ");
+                        string goalName = Console.ReadLine();
+                        Console.Write("What is a short description of it? ");
+                        string goalDescription = Console.ReadLine();
+                        Console.Write("What is the points associated to this Goal? ");
+                        int goalPoints = Int16.Parse(Console.ReadLine());
+
                         switch (selectedGoalOption) // options for Goal Menu
                         {
                             case 1: // create simple goal
-                                Console.Write("What is the name of your Goal? ");
-                                string goalName = Console.ReadLine();
-                                Console.Write("What is a short description of it? ");
-                                string goalDescription = Console.ReadLine();
-                                Console.Write("What is the pints associated to this Goal? ");
-                                int goalPoints = Int16.Parse(Console.ReadLine());
-                                SimpleGoal simpleGoal = new(goalName, goalDescription, goalPoints);
+
+                                goal = new SimpleGoal(goalName, goalDescription, goalPoints);
 
                                 Console.Write($"Your goal {goalName} has been created. Press <enter> to continue...");
                                 Console.ReadLine();
                                 selectedGoalOption = goalMenu.Show();
                                 break;
                             case 2:
+                                goal = new EternalGoal(goalName, goalDescription, goalPoints);
+
                                 Console.WriteLine(selectedGoalOption);
 
                                 break;
                             case 3:
+                                Console.Write("How many times to complete this goal? ");
+                                int timesToComplete = Int16.Parse(Console.ReadLine());
+                                Console.Write("How much bonut after complete this goal? ");
+                                int bonusPoints = Int16.Parse(Console.ReadLine());
                                 Console.WriteLine(selectedGoalOption);
-
+                                goal = new CheckListGoal(goalName, goalDescription, goalPoints, timesToComplete, bonusPoints);
                                 break;
                             case 4:
                                 break;
 
                         }
-                        
+                        goals.Add(goal);
+
                     }
+                    
                     break;
                 case 2:
-                    Console.WriteLine(selectedMainOption);
+                    Console.Clear();
+                    Console.WriteLine("Your goals are: ");
+                    foreach (Goal myGoal in goals)
+                    {
+                        Console.WriteLine(myGoal.ToString());
+                    }
+                    Console.WriteLine("Hit <enter to continue...");
+                    Console.ReadLine();
                     break;
                 case 3:
                     Console.WriteLine(selectedMainOption);
@@ -88,4 +110,5 @@ class Program
         }
 
     }
+
 }
