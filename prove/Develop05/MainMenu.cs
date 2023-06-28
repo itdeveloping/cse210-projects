@@ -19,7 +19,7 @@ namespace Develop05
 
         public override int Show()
         {
-            Console.Clear();
+
             Console.WriteLine($"{_description}\n");
             foreach (string option in _options)
             {

@@ -30,6 +30,7 @@ namespace Develop05
         }
         public virtual int RecordEvent()
         {
+            
             return _points;
         }
     }

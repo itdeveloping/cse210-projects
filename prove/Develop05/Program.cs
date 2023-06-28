@@ -7,6 +7,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Score score = new Score();
         int selectedMainOption;
         List<string> mainMenuOptions = new();
         mainMenuOptions.Add("1. Create New Goal");
@@ -28,13 +29,16 @@ class Program
         Goal goal = null;
 
         List<Goal> goals = new List<Goal>();
-
+        Console.Clear();
+        Console.WriteLine($"Your actual score is: {score.GetScore()}\n");
         selectedMainOption = mainMenu.Show();
         while (selectedMainOption != 6)
         {
             switch (selectedMainOption) // options for Main Menu
             {
                 case 1:
+                    Console.Clear();
+                    Console.WriteLine($"Your actual score is: {score.GetScore()}\n");
                     selectedGoalOption = goalMenu.Show();
                     while (selectedGoalOption != 4)
                     {
@@ -66,6 +70,8 @@ class Program
                         goals.Add(goal);
                         Console.Write($"\nYour goal --{goalName}-- has been created. Press <enter> to continue...");
                         Console.ReadLine();
+                        Console.Clear();
+                        Console.WriteLine($"Your actual score is: {score.GetScore()} \n");
                         selectedGoalOption = goalMenu.Show();
 
                     }
@@ -73,6 +79,7 @@ class Program
                     break;
                 case 2:
                     Console.Clear();
+                    Console.WriteLine($"Your actual score is: {score.GetScore()} \n");
                     Console.WriteLine("Your goals are: \n");
                     int numeral = 0;
                     foreach (Goal myGoal in goals)
@@ -91,6 +98,7 @@ class Program
                     break;
                 case 5:
                     Console.Clear();
+                    Console.WriteLine($"Your actual score is: {score.GetScore()} \n");
                     Console.WriteLine("Your goals are: \n");
 
                     numeral = 0;
@@ -101,17 +109,18 @@ class Program
                     }
                     Console.Write("\nWhich goal did you accomplished? ");
                     int goalCompleted = Int16.Parse(Console.ReadLine());
-
                     Console.Write($"\nCongratulations you have earned: {goals[goalCompleted - 1].RecordEvent()} points! Press <enter> to continue...");
                     Console.ReadLine();
                     break;
                 case 6:
 
-                    Console.WriteLine("Thank you for using our system. See you next time!");
+                    Console.WriteLine("Thank you for using our system. See you next time!\n");
                     System.Environment.Exit(0);
 
                     break;
             }
+            Console.Clear();
+            Console.WriteLine($"Your actual score is: {score.GetScore()} \n");
             selectedMainOption = mainMenu.Show();
         }
 
