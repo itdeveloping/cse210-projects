@@ -23,9 +23,9 @@ namespace Develop05
         {
 
             if (_isCompleted)
-                return $"[x]{_name} {_description}";
+                return $"[x] {_name} ({_description}) ";
             else
-                return $"[ ]{_name} {_description}";
+                return $"[ ] {_name} ({_description}) ";
 
         }
         public virtual int RecordEvent()

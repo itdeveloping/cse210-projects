@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Develop05
 {
-    public  class CheckListGoal : Goal
+    public class CheckListGoal : Goal
     {
         private int _timesToComplete;
         private int _bonusPoints;
         private int _timesCompleted;
-        public CheckListGoal(string name, string description, int points, int timesToComplete, int bonusPoints) : base( name,  description,  points)
+        public CheckListGoal(string name, string description, int points, int timesToComplete, int bonusPoints) : base(name, description, points)
         {
             _timesToComplete = timesToComplete;
             _bonusPoints = bonusPoints;
@@ -21,13 +21,16 @@ namespace Develop05
         {
             _timesCompleted++;
             if (_timesCompleted == _timesToComplete)
+            {
+                _isCompleted = true;
                 return base.RecordEvent() + _bonusPoints;
+            }
             else
                 return base.RecordEvent();
         }
         public override string ToString()
         {
-            return $"{base.ToString()} {_timesCompleted}/{_timesToComplete}";
+            return $"{base.ToString()} --- Currently completed {_timesCompleted}/{_timesToComplete}";
         }
     }
 }

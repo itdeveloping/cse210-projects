@@ -25,7 +25,7 @@ class Program
 
         MainMenu mainMenu = new("Menu Options", mainMenuOptions, "Select a choice from the menu: ");
         GoalMenu goalMenu = new("The types of goals are:", goalMenuOptions, "Which type of goals you would like to create? ");
-        Goal goal=null;
+        Goal goal = null;
 
         List<Goal> goals = new List<Goal>();
 
@@ -34,7 +34,6 @@ class Program
         {
             switch (selectedMainOption) // options for Main Menu
             {
-
                 case 1:
                     selectedGoalOption = goalMenu.Show();
                     while (selectedGoalOption != 4)
@@ -50,44 +49,38 @@ class Program
                         switch (selectedGoalOption) // options for Goal Menu
                         {
                             case 1: // create simple goal
-
                                 goal = new SimpleGoal(goalName, goalDescription, goalPoints);
-
-                                Console.Write($"Your goal {goalName} has been created. Press <enter> to continue...");
-                                Console.ReadLine();
-                                selectedGoalOption = goalMenu.Show();
                                 break;
                             case 2:
                                 goal = new EternalGoal(goalName, goalDescription, goalPoints);
-
-                                Console.WriteLine(selectedGoalOption);
 
                                 break;
                             case 3:
                                 Console.Write("How many times to complete this goal? ");
                                 int timesToComplete = Int16.Parse(Console.ReadLine());
-                                Console.Write("How much bonut after complete this goal? ");
+                                Console.Write("How much bonus after complete this goal? ");
                                 int bonusPoints = Int16.Parse(Console.ReadLine());
-                                Console.WriteLine(selectedGoalOption);
                                 goal = new CheckListGoal(goalName, goalDescription, goalPoints, timesToComplete, bonusPoints);
                                 break;
-                            case 4:
-                                break;
-
                         }
                         goals.Add(goal);
+                        Console.Write($"\nYour goal --{goalName}-- has been created. Press <enter> to continue...");
+                        Console.ReadLine();
+                        selectedGoalOption = goalMenu.Show();
 
                     }
-                    
+
                     break;
                 case 2:
                     Console.Clear();
-                    Console.WriteLine("Your goals are: ");
+                    Console.WriteLine("Your goals are: \n");
+                    int numeral = 0;
                     foreach (Goal myGoal in goals)
                     {
-                        Console.WriteLine(myGoal.ToString());
+                        numeral++;
+                        Console.WriteLine($"{numeral}. {myGoal.ToString()}");
                     }
-                    Console.WriteLine("Hit <enter to continue...");
+                    Console.Write("\nHit <enter> to continue...");
                     Console.ReadLine();
                     break;
                 case 3:
@@ -97,7 +90,20 @@ class Program
                     Console.WriteLine(selectedMainOption);
                     break;
                 case 5:
-                    Console.WriteLine(selectedMainOption);
+                    Console.Clear();
+                    Console.WriteLine("Your goals are: \n");
+
+                    numeral = 0;
+                    foreach (Goal myGoal in goals)
+                    {
+                        numeral++;
+                        Console.WriteLine($"{numeral}. {myGoal.ToString()}");
+                    }
+                    Console.Write("\nWhich goal did you accomplished? ");
+                    int goalCompleted = Int16.Parse(Console.ReadLine());
+
+                    Console.Write($"\nCongratulations you have earned: {goals[goalCompleted - 1].RecordEvent()} points! Press <enter> to continue...");
+                    Console.ReadLine();
                     break;
                 case 6:
 
