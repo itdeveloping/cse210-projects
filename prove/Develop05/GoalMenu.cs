@@ -1,20 +1,37 @@
 public class GoalMenu : Menu
 {
-    public GoalMenu(string filename) : base(filename)
+    private int _selectedOption;
+    public GoalMenu(string description, List<string> options, string prompt) : base(description, options, prompt)
     {
-        _fileName = filename;
+        _description = description;
+        _options = options;
+        _prompt = prompt;
     }
-    public override void DisplayMenu()
+    public override int Show()
     {
-        FillMenu();
-        Console.WriteLine("-------------------------");
-        Console.WriteLine("\nThe types of Goals are:");
-        foreach (string option in _option)
+        Console.Clear();
+        Console.WriteLine($"{_description}\n");
+        foreach (string option in _options)
         {
             Console.WriteLine(option);
         }
-        Console.Write("\nWhich type of Goals would you like to create? ");
-        _selectedOption = Console.ReadLine();
+        Console.Write($"\n{_prompt}");
+        _selectedOption = Int16.Parse(Console.ReadLine());
+        while (_selectedOption < 1 || _selectedOption > 6)
+        {
 
+            Console.Write($"{_selectedOption} is not a valid option! Please try again. Hit <enter> to continue...");
+            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine($"{_description}\n");
+            foreach (string option in _options)
+            {
+                Console.WriteLine(option);
+            }
+            Console.Write($"\n{_prompt}");
+            _selectedOption = Int16.Parse(Console.ReadLine());
+        }
+        return _selectedOption;
     }
+
 }

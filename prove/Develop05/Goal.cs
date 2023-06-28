@@ -1,11 +1,25 @@
-public class Goal
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Develop05
 {
-    protected int _goalPoints;
-    protected string _name;
-    protected string _description;
-    public Goal(string name, string description)
+    public abstract class Goal
     {
-        _name = name;
-        _description = description;
+        protected string _name;
+        protected string _description;
+        protected int _points;
+        public Goal(string name, string description, int points)
+        {
+            _name = name;
+            _description = description;
+            _points = points;
+        }
+        public override string ToString()
+        {
+            return _name+_description+_points;
+        }
     }
 }

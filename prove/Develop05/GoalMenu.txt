@@ -1,3 +1,4 @@
 1. Simple Goal
 2. Eternal Goal
 3. Checklist Goal
+4. Main Menu
