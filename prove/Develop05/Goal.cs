@@ -13,11 +13,12 @@ namespace Develop05
         protected int _points;
         protected bool _isCompleted;
 
-        public Goal(string name, string description, int points)
+        public Goal(string name, string description, int points, bool isCompleted)
         {
             _name = name;
             _description = description;
             _points = points;
+            _isCompleted = isCompleted;
         }
         public override string ToString()
         {
@@ -27,6 +28,10 @@ namespace Develop05
             else
                 return $"[ ] {_name} ({_description}) ";
 
+        }
+        public virtual string StringToFile()
+        {
+            return $"{_name}|{_description}|{_points}|{_isCompleted}";
         }
         public virtual int RecordEvent()
         {

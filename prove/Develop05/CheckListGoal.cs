@@ -11,14 +11,16 @@ namespace Develop05
         private int _timesToComplete;
         private int _bonusPoints;
         private int _timesCompleted;
-        public CheckListGoal(string name, string description, int points, int timesToComplete, int bonusPoints) : base(name, description, points)
+        public CheckListGoal(string name, string description, int points,int timesCompleted, int timesToComplete, int bonusPoints, bool isCompleted) : base(name, description, points, isCompleted)
         {
+            _timesCompleted = timesCompleted;
             _timesToComplete = timesToComplete;
             _bonusPoints = bonusPoints;
         }
 
         public override int RecordEvent()
         {
+            if (!_isCompleted)
             _timesCompleted++;
             if (_timesCompleted == _timesToComplete)
             {
@@ -31,6 +33,10 @@ namespace Develop05
         public override string ToString()
         {
             return $"{base.ToString()} --- Currently completed {_timesCompleted}/{_timesToComplete}";
+        }
+        public override string StringToFile()
+        {
+            return $"3|{base.StringToFile()}|{_timesCompleted}|{_timesToComplete}|{_bonusPoints}";
         }
     }
 }

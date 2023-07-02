@@ -27,7 +27,7 @@ namespace Develop05
             }
             Console.Write($"\n{_prompt}");
             _selectedOption = Int16.Parse(Console.ReadLine());
-            while (_selectedOption<1 || _selectedOption>6)
+            while (_selectedOption<1 || _selectedOption>7)
             {
 
                 Console.Write($"{_selectedOption} is not a valid option! Please try again. Hit <enter> to continue...");
