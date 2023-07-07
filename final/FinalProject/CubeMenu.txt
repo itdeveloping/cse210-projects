@@ -1,0 +1,6 @@
+﻿1. Add a product cube
+2. Add a service cube
+3. List cubes
+4. Update a cube
+5. Delete a cube
+6. Back to main menu <-

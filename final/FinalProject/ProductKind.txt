@@ -1,0 +1,6 @@
+﻿1. Add a product
+2. Add a service
+3. List products/services
+4. Update a product product/service
+5. Delete a product product/service
+6. Back to main menu <-

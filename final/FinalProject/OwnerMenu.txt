@@ -1,0 +1,5 @@
+﻿1. Register an owner
+2. List owner
+3. Update owner's information
+4. Delete owner's record
+5. Back to main menu <-
