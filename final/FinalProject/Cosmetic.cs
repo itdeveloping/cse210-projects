@@ -15,7 +15,7 @@ namespace ConsoleApp2
         }
         public override string ToString()
         {
-            return $"Product: {_name} by {_brand}, {_description}, size: {_quantity}, price ${_price}, stock: {_stock}";
+            return $"{_name} by {_brand}, {_description}, size: {_quantity}, price ${_price}, stock: {_stock}";
         }
     }
 }

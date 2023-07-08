@@ -14,6 +14,15 @@ namespace ConsoleApp2
         {
             _size = size;
         }
+        public override void DeleteProduct()
+        {
+            
+        }
+        public override void ListProduct()
+        {
+            
+        }
+
         public override string ToString()
         {
             return $"{_name} by {_brand}, {_description}, size: {_size}, price ${_price}, stock: {_stock}";

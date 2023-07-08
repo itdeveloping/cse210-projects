@@ -3,4 +3,5 @@
 3. List cubes
 4. Update a cube
 5. Delete a cube
-6. Back to main menu <-
+6. Rent a cube
+7. Back to main menu <-

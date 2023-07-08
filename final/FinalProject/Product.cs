@@ -9,10 +9,10 @@ namespace ConsoleApp2
     public class Product
     {
         public string _name;
-        protected string _description;
-        protected string _brand;
-        protected double _price;
-        protected int _stock;
+        public string _description;
+        public string _brand;
+        public double _price;
+        public int _stock;
 
         public Product(string name, string description) // for service sub class
         {
@@ -30,7 +30,15 @@ namespace ConsoleApp2
             _stock = stock;
 
         }
+        public virtual void DeleteProduct()
+        {
+
+        }
         
+        public virtual void ListProduct()
+        {
+
+        }
         public override string ToString()
         {
             return $"{_name} by {_brand} , {_description}, price ${_price}, stock: {_stock}";

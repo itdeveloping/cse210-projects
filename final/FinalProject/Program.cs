@@ -10,7 +10,7 @@ Menu productMenu = new("ProductMenu.txt", " Product menu options: ");
 Menu productKindMenu = new("ProductKindMenu.txt", " Types of product menu options: ");
 Menu ownerMenu = new("OwnerMenu.txt", " Owner menu options: ");
 Menu customerMenu = new("CustomerMenu.txt", "Customer menu options: ");
-int counter, selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption, idCube, idCubeToUpdate, idCubeToDelete, idOwner, idOwnerToDelete, idOwnerToUpdate, idCustomer, stock;
+int counter, selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption, idCube, idCubeToUpdate, idCubeToDelete, idProduct, idProductToDelete, idProductToUpdate, idCubeToRent, idOwner, idOwnerToDelete, idOwnerToUpdate, idOwnerToRent, idCustomer, stock;
 string brand, name, description, size, provider, quantity, email, phone, serviceName;
 double price;
 
@@ -27,7 +27,7 @@ Person ownerObject;
 //add cubes samples
 cubeObject = new ProductCube(1, 15.21, true);
 cubeList.Add(cubeObject);
-cubeObject = new ProductCube(3, 10.19, true);
+cubeObject = new ProductCube(3, 10.19, false);
 cubeList.Add(cubeObject);
 cubeObject = new ProductCube(2, 9.4, true);
 cubeList.Add(cubeObject);
@@ -72,7 +72,7 @@ while (selectedOption != 6) // Main menu option
             Console.Write("\nChoose an option from the list: ");
             cubeOption = Int16.Parse(Console.ReadLine());
 
-            while (cubeOption != 6) // Cube Menu
+            while (cubeOption != 7) // Cube Menu
             {
 
                 switch (cubeOption) // CUbe menu selected options
@@ -148,7 +148,7 @@ while (selectedOption != 6) // Main menu option
                                 Console.WriteLine($"{counter}. {item.ToString()}");
                                 counter++;
                             }
-                            Console.Write("\nSelect the list number to update the cube's information: ");
+                            Console.Write("\nSelect the list number to update: ");
                             idCubeToUpdate = Int16.Parse(Console.ReadLine());
                             if (idCubeToUpdate > cubeList.Count)  // check if input is greater than list count
                             {
@@ -208,6 +208,65 @@ while (selectedOption != 6) // Main menu option
                             }
                         }
                         Console.Write("Press <enter> to continue... ");
+                        Console.ReadLine();
+                        break;
+                    case 6: // rent a cube
+                        Console.Clear();
+                        Console.WriteLine("Rent a cube: \n");
+                        cubeList.Sort(delegate (Cube x, Cube y)
+                        {
+                            return x._idCube.CompareTo(y._idCube);
+                        });
+                        if (cubeList.Count == 0) // check if the cube list is empty 
+                        { // mesaage of empty list
+                            Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
+                        }
+                        else
+                        { // list cubes
+                            Console.WriteLine("List of registered cubes: \n");
+                            //cubeList.Sort(cubeObject._idCube);
+                            counter = 1;
+                            foreach (Cube item in cubeList)
+                            {
+                                if (item.IsAvailable() == true)
+                                {
+                                    Console.WriteLine($"{counter}. {item.ToString()}");
+                                    counter++;
+                                }
+                            }
+                            Console.Write("\nChoose the cube you want to rent: ");
+                            idCubeToRent = Int16.Parse(Console.ReadLine());
+                            if (idCubeToRent > cubeList.Count)  // check if input is greater than list count
+                            {
+                                Console.Write("\nNot a valid input! Try again. ");
+                            }
+                            else
+                            {
+                                if (ownerList.Count == 0) // check if the owner list is empty 
+                                { // mesaage of empty list
+                                    Console.WriteLine("Your owners list is empty! Add a product/service cube from the Cube Menu.");
+                                }
+                                else
+                                { // list owners
+                                    Console.WriteLine("List of registered owners: \n");
+                                    ownerList.Sort(delegate (Person x, Person y)
+                                    {
+                                        return x._name.CompareTo(y._name);
+                                    });
+                                    counter = 1;
+                                    foreach (Person item in ownerList)
+                                    {
+                                        Console.WriteLine($"{counter}. {item.ToString()}");
+                                        counter++;
+                                    }
+                                    Console.Write($"\nChoose the owner's name who want to rent cube #{idCubeToRent}:");
+                                    idOwnerToRent=Int16.Parse(Console.ReadLine());
+
+                                    Console.Write($"\nThe cube is rented ");
+                                }
+
+                            }
+                        }
                         Console.ReadLine();
                         break;
                     default: //not a valid option
@@ -281,7 +340,7 @@ while (selectedOption != 6) // Main menu option
                                     Console.WriteLine("Register cosmetic.\n");
                                     Console.Write("What is the brand of the cosmetic: ");
                                     brand = Console.ReadLine();
-                                    Console.Write("What is the cosmetic's: ");
+                                    Console.Write("What is the cosmetic's name: ");
                                     name = Console.ReadLine();
                                     Console.Write($"Type a brief description for {brand} {name}: ");
                                     description = Console.ReadLine();
@@ -291,7 +350,7 @@ while (selectedOption != 6) // Main menu option
                                     price = double.Parse(Console.ReadLine());
                                     Console.Write($"What is the stock for {brand} {name}: ");
                                     stock = Int16.Parse(Console.ReadLine());
-                                    productObject = new Clothe(name, description, brand, price, stock, quantity);
+                                    productObject = new Cosmetic(name, description, brand, price, stock, quantity);
                                     productList.Add(productObject);
                                     Console.Write($"\nYour -- {brand} {name} -- cosmetic has been registered!. Press <enter> to continue...");
                                     Console.ReadLine();
@@ -353,12 +412,81 @@ while (selectedOption != 6) // Main menu option
                         Console.Write("\nPress <enter> to continue... ");
                         Console.ReadLine();
                         break;
-                    case 4:
-                        Console.WriteLine("4");
+                    case 4://update a product/service
+                        Console.Clear();
+                        productList.Sort(delegate (Product x, Product y)
+                        {
+                            return x._name.CompareTo(y._name);
+                        });
+                        Console.WriteLine("Update product's information: \n");
+                        Console.WriteLine("Products list:\n");
+                        counter = 1;
+                        foreach (Product item in productList)
+                        {
+                            Console.WriteLine($"{counter}. {item.ToString()}");
+                            counter++;
+                        }
+                        Console.Write("\nSelect the list number to update: ");
+                        idProductToUpdate = Int16.Parse(Console.ReadLine());
+                        if (idProductToUpdate > productList.Count)  // check if input is greater than list count
+                        {
+                            Console.Write("\nNot a valid input! Try again. ");
+                        }
+                        else
+                        {
+                            idProductToUpdate--;
+                            /*
+                            Console.Write("What is the brand of the cosmetic: ");
+                            brand = Console.ReadLine();
+                            Console.Write("What is the cosmetic's: ");
+                            name = Console.ReadLine();
+                            Console.Write($"Type a brief description for {brand} {name}: ");
+                            description = Console.ReadLine();
+                            Console.Write($"What is the quantity(ex. 100 ml) for {brand} {name}: ");
+                            quantity = Console.ReadLine();
+                            Console.Write($"What is the price for {brand} {name}: ");
+                            price = double.Parse(Console.ReadLine());
+                            Console.Write($"What is the stock for {brand} {name}: ");
+                            stock = Int16.Parse(Console.ReadLine());
+                            productObject = new Clothe(name, description, brand, price, stock, quantity);
+                            productList.Add(productObject);
+                            Console.Write($"\nYour -- {brand} {name} -- cosmetic has been registered!. Press <enter> to continue...");
+                            Console.ReadLine();
+                            */
+
+                            Console.Write("\nYour --service cube-- has been updated! ");
+                        }
+
+                        Console.Write("\nPress <enter> to continue... ");
                         Console.ReadLine();
                         break;
-                    case 5:
-                        Console.WriteLine("5");
+                    case 5://delete a product/service
+                        Console.Clear();
+                        productList.Sort(delegate (Product x, Product y)
+                        {
+                            return x._name.CompareTo(y._name);
+                        });
+                        Console.WriteLine("Products list:\n");
+                        counter = 1;
+                        foreach (Product item in productList)
+                        {
+                            Console.WriteLine($"{counter}. {item.ToString()}");
+                            counter++;
+                        }
+                        Console.Write("\nChoose the list number to delete: ");
+                        idProductToDelete = Int16.Parse(Console.ReadLine());
+                        if (idProductToDelete > productList.Count)  // check if input is greater than list count
+                        {
+                            Console.Write("\nNot a valid input! Try again. ");
+                        }
+                        else
+                        {
+                            idProductToDelete--;
+                            productList.RemoveRange(idProductToDelete, 1);
+                            Console.Write($"\nThe product/service information has been deleted! ");
+                        }
+
+                        Console.Write("\nPress <enter> to continue... ");
                         Console.ReadLine();
                         break;
                     default: //not a valid option
