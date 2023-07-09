@@ -18,7 +18,6 @@ namespace ConsoleApp2
             _price = price;
             _available = available;
             _ownerName = "";
-
         }
 
         public virtual void AddOwner(string ownerName)
@@ -27,14 +26,17 @@ namespace ConsoleApp2
             _available = false;
         }
         public virtual void AddService(string _serviceName) { }
+
         public void Release()
         {
             _available = true;
         }
+
         public bool IsAvailable()
         {
             return _available;
         }
+
         public override string ToString()
         {
             if (_available)
