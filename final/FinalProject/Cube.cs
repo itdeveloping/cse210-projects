@@ -12,6 +12,7 @@ namespace ConsoleApp2
         public double _price;
         protected bool _available;
         protected string _ownerName;
+        protected string _serviceName;
         public Cube(int number, double price, bool available)
         {
             _idCube = number;
@@ -25,7 +26,10 @@ namespace ConsoleApp2
             _ownerName = ownerName;
             _available = false;
         }
-        public virtual void AddService(string _serviceName) { }
+        public virtual void AddService(string serviceName)
+        {
+            _serviceName = serviceName;
+        }
 
         public void Release()
         {
@@ -40,9 +44,9 @@ namespace ConsoleApp2
         public override string ToString()
         {
             if (_available)
-
                 return $"#{_idCube}, Price: $ {_price:0.00}, Available: Yes";
             else
+
                 return $"#{_idCube}, Price: $ {_price:0.00}, Available: No, Owner: {_ownerName}";
 
         }

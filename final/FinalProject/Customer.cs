@@ -13,7 +13,7 @@ namespace ConsoleApp2
         }
         public override string ToString()
         {
-            return $"Customer info: {base.ToString()}, Id: {_id}";
+            return $"Customer info: {base.ToString()}";
         }
 
     }

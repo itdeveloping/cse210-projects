@@ -26,7 +26,7 @@ namespace ConsoleApp2
 
         public override string ToString()
         {
-            return $"{_name}, Email: {_email}, Phone: {_phone}, Id: {_id}";
+            return $" Id: {_id}, {_name}, Email: {_email}, Phone: {_phone}";
         }
 
     }

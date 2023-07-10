@@ -10,12 +10,12 @@ Menu productMenu = new("ProductMenu.txt", " Product menu options: ");
 Menu productKindMenu = new("ProductKindMenu.txt", " Types of product menu options: ");
 Menu ownerMenu = new("OwnerMenu.txt", " Owner menu options: ");
 Menu customerMenu = new("CustomerMenu.txt", "Customer menu options: ");
-int counter, selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption, idCube, idCubeToUpdate, idCubeToDelete, idProduct, idProductToDelete, idProductToUpdate, idCubeToRent, idOwner, idOwnerToDelete, idOwnerToUpdate, idOwnerToRent, idCustomer, stock;
-string brand, name, description, size, provider, quantity, email, phone, serviceName;
+int counter, selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption,  idProduct, idProductToDelete, idProductToUpdate, idOwner, idOwnerToDelete, idOwnerToUpdate, idCustomer, stock;
+string brand, name, description, size, provider, quantity, email, phone;
 double price;
 
-List<Cube> cubeList = new List<Cube>();
-Cube cubeObject;
+/*List<Cube> cubeList = new List<Cube>();
+Cube cubeObject;*/
 List<Product> productList = new List<Product>();
 Product productObject;
 List<Person> customerList = new List<Person>();
@@ -25,14 +25,14 @@ Person ownerObject;
 
 
 //add cubes samples
-cubeObject = new ProductCube(1, 15.21, true);
-cubeList.Add(cubeObject);
-cubeObject = new ProductCube(3, 10.19, false);
-cubeList.Add(cubeObject);
-cubeObject = new ProductCube(2, 9.4, true);
-cubeList.Add(cubeObject);
-cubeObject = new ServiceCube(2, 9.4, true);
-cubeList.Add(cubeObject);
+//cubeObject = new ProductCube(1, 15.21, true);
+//cubeList.Add(cubeObject);
+//cubeObject = new ProductCube(3, 10.19, false);
+//cubeList.Add(cubeObject);
+//cubeObject = new ProductCube(2, 9.4, true);
+//cubeList.Add(cubeObject);
+//cubeObject = new ServiceCube(2, 9.4, true);
+//cubeList.Add(cubeObject);
 
 //add owners samples
 ownerObject = new Owner("Oscar Rodriguez", "oscar@gmail.com", "8342158421", 3);
@@ -57,6 +57,8 @@ productList.Add(productObject);
 productObject = new Cosmetic("Body Fragrance Mist", "Wild Wave Rider Ocean Splash", "Justice", 5.98, 15, "8.4 fl oz");
 productList.Add(productObject);
 
+
+Manager manager = new Manager();
 //start with main menu
 Console.Clear();
 Console.WriteLine("Final Project - Shop manager\n");
@@ -78,58 +80,63 @@ while (selectedOption != 6) // Main menu option
                 switch (cubeOption) // CUbe menu selected options
                 {
                     case 1: // Cube menu: Add a product cube
-                        Console.Clear();
-                        Console.WriteLine("Add a product cube: \n");
-                        Console.Write("What is the number of the cube? ");
-                        idCube = Int16.Parse(Console.ReadLine());
-                        Console.Write($"What is the price for cube #{idCube}? ");
-                        price = double.Parse(Console.ReadLine());
+                        manager.AddProductCube();
 
-                        cubeObject = new ProductCube(idCube, price, true);
-                        cubeList.Add(cubeObject);
-                        Console.Write("\nYour --product cube-- has been added. Press <enter> to continue...");
-                        Console.ReadLine();
+                        //Console.Clear();
+                        //Console.WriteLine("Add a product cube: \n");
+                        //Console.Write("What is the number of the cube? ");
+                        //idCube = Int16.Parse(Console.ReadLine());
+                        //Console.Write($"What is the price for cube #{idCube}? ");
+                        //price = double.Parse(Console.ReadLine());
+
+                        //cubeObject = new ProductCube(idCube, price, true);
+                        //cubeList.Add(cubeObject);
+                        //Console.Write("\nYour --product cube-- has been added. Press <enter> to continue...");
+                        //Console.ReadLine();
 
                         break;
                     case 2: // Cube menu: Add a service cube
-                        Console.Clear();
+                        manager.AddServiceCube();
+                        //Console.Clear();
 
-                        Console.WriteLine("Add a service cube: \n");
-                        Console.Write("What is the number of the cube? ");
-                        idCube = Int16.Parse(Console.ReadLine());
-                        Console.Write($"What is the price for cube #{idCube}? ");
-                        price = double.Parse(Console.ReadLine());
-                        cubeObject = new ServiceCube(idCube, price, true);
-                        cubeList.Add(cubeObject);
-                        Console.Write("\nYour --service cube-- has been added. Press <enter> to continue...");
-                        Console.ReadLine();
+                        //Console.WriteLine("Add a service cube: \n");
+                        //Console.Write("What is the number of the cube? ");
+                        //idCube = Int16.Parse(Console.ReadLine());
+                        //Console.Write($"What is the price for cube #{idCube}? ");
+                        //price = double.Parse(Console.ReadLine());
+                        //cubeObject = new ServiceCube(idCube, price, true);
+                        //cubeList.Add(cubeObject);
+                        //Console.Write("\nYour --service cube-- has been added. Press <enter> to continue...");
+                        //Console.ReadLine();
                         break;
                     case 3: // Cube menu: List cubes
-                        Console.Clear();
-                        if (cubeList.Count == 0) // check if the cube list is empty 
-                        { // mesaage of empty list
-                            Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-                        }
-                        else
-                        { // list cubes
-                            cubeList.Sort(delegate (Cube x, Cube y)
-                            {
-                                return x._idCube.CompareTo(y._idCube);
-                            });
+                        manager.ListCubes();
+                        //Console.Clear();
+                        //if (cubeList.Count == 0) // check if the cube list is empty 
+                        //{ // mesaage of empty list
+                        //    Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
+                        //}
+                        //else
+                        //{ // list cubes
+                        //    cubeList.Sort(delegate (Cube x, Cube y)
+                        //    {
+                        //        return x._idCube.CompareTo(y._idCube);
+                        //    });
 
-                            Console.WriteLine("List of registered cubes: \n");
-                            counter = 1;
-                            foreach (Cube item in cubeList)
-                            {
-                                Console.WriteLine($"{counter}. {item.ToString()}");
-                                counter++;
-                            }
-                        }
-                        Console.Write("\nPress <enter> to continue...");
-                        Console.ReadLine();
+                        //    Console.WriteLine("List of registered cubes: \n");
+                        //    counter = 1;
+                        //    foreach (Cube item in cubeList)
+                        //    {
+                        //        Console.WriteLine($"{counter}. {item.ToString()}");
+                        //        counter++;
+                        //    }
+                        //}
+                        //Console.Write("\nPress <enter> to continue...");
+                        //Console.ReadLine();
                         break;
                     case 4: // Cube menu: Update cube's information 
-                        Console.Clear();
+                        manager.UpdateCube();
+                        /*Console.Clear();
                         if (cubeList.Count == 0) // check if the cube list is empty 
                         { // mesaage of empty list
                             Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
@@ -170,16 +177,17 @@ while (selectedOption != 6) // Main menu option
                         }
                         Console.Write("Press <enter> to continue... ");
 
-                        Console.ReadLine();
+                        Console.ReadLine();*/
 
                         break;
                     case 5: // Cube menu: Delete cube's information
-                        Console.Clear();
-                        cubeList.Sort(delegate (Cube x, Cube y)
+                        manager.DeleteCube();
+                       /* Console.Clear();
+                        _cubeList.Sort(delegate (Cube x, Cube y)
                         {
                             return x._idCube.CompareTo(y._idCube);
                         });
-                        if (cubeList.Count == 0) // check if the cube list is empty 
+                        if (_cubeList.Count == 0) // check if the cube list is empty 
                         { // mesaage of empty list
                             Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
                         }
@@ -188,36 +196,37 @@ while (selectedOption != 6) // Main menu option
                             Console.WriteLine("Delete cube's information: \n");
                             Console.WriteLine("List of registered cubes: \n");
                             //cubeList.Sort(cubeObject._idCube);
-                            counter = 1;
-                            foreach (Cube item in cubeList)
+                            _counter = 1;
+                            foreach (Cube item in _cubeList)
                             {
-                                Console.WriteLine($"{counter}. {item.ToString()}");
+                                Console.WriteLine($"{_counter}. {item.ToString()}");
                                 counter++;
                             }
                             Console.Write("\nChoose the list number to delete: ");
-                            idCubeToDelete = Int16.Parse(Console.ReadLine());
-                            if (idCubeToDelete > cubeList.Count)  // check if input is greater than list count
+                            _idCubeToDelete = Int16.Parse(Console.ReadLine());
+                            if (idCubeToDelete > _cubeList.Count)  // check if input is greater than list count
                             {
                                 Console.Write("\nNot a valid input! Try again. ");
                             }
                             else
                             {
-                                idCubeToDelete--;
-                                cubeList.RemoveRange(idCubeToDelete, 1);
+                                _idCubeToDelete--;
+                                _cubeList.RemoveRange(_idCubeToDelete, 1);
                                 Console.Write($"\nThe cube information has been deleted! ");
                             }
                         }
                         Console.Write("Press <enter> to continue... ");
-                        Console.ReadLine();
+                        Console.ReadLine();*/
                         break;
                     case 6: // rent a cube
-                        Console.Clear();
+                        manager.RentCube();
+                       /* Console.Clear();
                         Console.WriteLine("Rent a cube: \n");
-                        cubeList.Sort(delegate (Cube x, Cube y)
+                        _cubeList.Sort(delegate (Cube x, Cube y)
                         {
                             return x._idCube.CompareTo(y._idCube);
                         });
-                        if (cubeList.Count == 0) // check if the cube list is empty 
+                        if (_cubeList.Count == 0) // check if the cube list is empty 
                         { // mesaage of empty list
                             Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
                         }
@@ -225,13 +234,13 @@ while (selectedOption != 6) // Main menu option
                         { // list cubes
                             Console.WriteLine("List of registered cubes: \n");
                             //cubeList.Sort(cubeObject._idCube);
-                            counter = 1;
-                            foreach (Cube item in cubeList)
+                            _counter = 1;
+                            foreach (Cube item in _cubeList)
                             {
                                 if (item.IsAvailable() == true)
                                 {
-                                    Console.WriteLine($"{counter}. {item.ToString()}");
-                                    counter++;
+                                    Console.WriteLine($"{_counter}. {item.ToString()}");
+                                    _counter++;
                                 }
                             }
                             Console.Write("\nChoose the cube you want to rent: ");
@@ -267,7 +276,7 @@ while (selectedOption != 6) // Main menu option
 
                             }
                         }
-                        Console.ReadLine();
+                        Console.ReadLine();*/
                         break;
                     default: //not a valid option
                         Console.WriteLine($"\n{cubeOption} is not a valid option! Try again, press <enter> to continue...");

@@ -13,14 +13,10 @@ namespace ConsoleApp2
         {
             _cubeList = new List<Cube>();
         }
-        public override void AddCube(Cube cube)
-        {
-            _cubeList.Add(cube);
-        }
 
         public override string ToString()
         {
-            return $"Owner's info: {base.ToString()}, Id: {_id}";
+            return $"Owner's info: {base.ToString()}";
         }
     }
 }
