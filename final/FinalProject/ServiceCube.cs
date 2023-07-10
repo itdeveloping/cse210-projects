@@ -4,20 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace FinalProject
 {
     public class ServiceCube : Cube
     {
-        private string _serviceName;
         public ServiceCube(int number, double price, bool available) : base(number, price, available)
         {
-            _serviceName = "";
+            _price  = price * 1.0825;// increase tax to service cubes
+            _serviceName = null;
         }
-
-        public override void AddService( string serviceName)
+        public override void SetPrice(double price)
         {
-            _serviceName = serviceName;
-
+            _price = price * 1.0825; // increase tax to service cubes
         }
         public override string ToString()
         {

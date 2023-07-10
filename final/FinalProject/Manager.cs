@@ -4,18 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace FinalProject
 {
     public class Manager
     {
-        int _counter;
         int _idCube;
         double _price;
+        int _cubeIndex;
         List<Cube> _cubeList = new List<Cube>();
         Cube _cubeObject;
 
         List<Cube> _rentedCubes = new List<Cube>();
-
 
         List<Product> _productList = new List<Product>();
         Product _productObject;
@@ -48,12 +47,24 @@ namespace ConsoleApp2
             Console.WriteLine("Add a product cube: \n");
             Console.Write("What is the number of the cube? ");
             _idCube = Int16.Parse(Console.ReadLine());
-            Console.Write($"What is the price for cube #{_idCube}? ");
-            _price = double.Parse(Console.ReadLine());
+            _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCube); //find index
+            if (_cubeIndex != -1) // _idCube found
+            {
+                Console.WriteLine($"\nThe cube #{_idCube} is already registered! \n");
+                Console.WriteLine($"Registered information: {_cubeList[_cubeIndex].ToString()}\n");
+                Console.Write("Please try again! ");
+            }
+            else
+            {
+                Console.Write($"What is the price for cube #{_idCube}? ");
+                _price = double.Parse(Console.ReadLine());
 
-            _cubeObject = new ProductCube(_idCube, _price, true);
-            _cubeList.Add(_cubeObject);
-            Console.Write("\nYour --product cube-- has been added. Press <enter> to continue...");
+                _cubeObject = new ProductCube(_idCube, _price, true);
+                _cubeList.Add(_cubeObject);
+                Console.Write("\nYour --product cube-- has been added. ");
+            }
+
+            Console.Write("Press <enter> to continue...");
             Console.ReadLine();
         }
         public void AddServiceCube()
@@ -63,11 +74,24 @@ namespace ConsoleApp2
             Console.WriteLine("Add a service cube: \n");
             Console.Write("What is the number of the cube? ");
             _idCube = Int16.Parse(Console.ReadLine());
-            Console.Write($"What is the price for cube #{_idCube}? ");
-            _price = double.Parse(Console.ReadLine());
-            _cubeObject = new ServiceCube(_idCube, _price, true);
-            _cubeList.Add(_cubeObject);
-            Console.Write("\nYour --service cube-- has been added. Press <enter> to continue...");
+            _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCube); //find index
+            if (_cubeIndex != -1) // _idCube found
+            {
+                Console.WriteLine($"\nThe cube #{_idCube} is already registered! \n");
+                Console.WriteLine($"Registered information: {_cubeList[_cubeIndex].ToString()}\n");
+                Console.Write("Please try again! ");
+            }
+            else
+            {
+                Console.Write($"What is the price for cube #{_idCube} (Service cube will increase 8.25% tax)? ");
+                _price = double.Parse(Console.ReadLine());
+                _cubeObject = new ServiceCube(_idCube, _price, true);
+                _cubeList.Add(_cubeObject);
+                Console.Write("\nYour --service cube-- has been added. ");
+            }
+
+            Console.Write("Press <enter> to continue...");
+
             Console.ReadLine();
         }
         public void UpdateCube()
@@ -80,35 +104,36 @@ namespace ConsoleApp2
             }
             else
             { // list cubes
-                _cubeList.Sort(delegate (Cube x, Cube y)
-                {
-                    return x._idCube.CompareTo(y._idCube);
-                });
+                _cubeObject.List(_cubeList);
                 Console.WriteLine("Update cube's information: \n");
                 Console.WriteLine("List of registered cubes: \n");
-                _counter = 1;
                 foreach (Cube item in _cubeList)
                 {
-                    Console.WriteLine($"{_counter}. {item.ToString()}");
-                    _counter++;
+                    Console.WriteLine($"{item.ToString()}");
                 }
-                Console.Write("\nSelect the list number to update: ");
+                Console.Write("\nSelect the cube number to update: ");
                 _idCubeToUpdate = Int16.Parse(Console.ReadLine());
-                if (_idCubeToUpdate > _cubeList.Count)  // check if input is greater than list count
+                _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToUpdate); //find index
+
+                if (_cubeIndex == -1)  // check if input is greater than list count
                 {
                     Console.Write("\nNot a valid input! Try again. ");
                 }
                 else
                 {
-                    _idCubeToUpdate--;
+                    //Console.WriteLine(_cubeList[_cubeIndex].GetType());
+                    if (_cubeList[_cubeIndex].GetType().ToString() == "FinalProject.ProductCube")
+                    {
+                        Console.Write($"What is the price for cube #{_cubeList[_cubeIndex].GetIdCube()}? ");
+                    }
+                    else
+                    {
+                        Console.Write($"What is the price for cube #{_cubeList[_cubeIndex].GetIdCube()} (Service cube will increase 8.25% tax)? ");
+                    }
 
-                    Console.Write("What is the number of the cube? ");
-                    _idCube = Int16.Parse(Console.ReadLine());
-                    Console.Write($"What is the price for cube #{_idCube}? ");
                     _price = double.Parse(Console.ReadLine());
-                    _cubeList[_idCubeToUpdate]._idCube = _idCube;
-                    _cubeList[_idCubeToUpdate]._price = _price;
-                    Console.Write("\nYour --service cube-- has been updated! ");
+                    _cubeList[_cubeIndex].SetPrice(_price);
+                    Console.Write($"\nThe cube #{_cubeIndex} has been updated! ");
                 }
 
             }
@@ -120,21 +145,17 @@ namespace ConsoleApp2
         {
             int _idOwnerToRent;
             int _idCubeToRent;
-            int _cubeIndex;
             int _ownerIndex;
             Console.Clear();
             Console.WriteLine("Rent a cube: \n");
-            _cubeList.Sort(delegate (Cube x, Cube y)
-            {
-                return x._idCube.CompareTo(y._idCube);
-            });
+            _cubeObject.List(_cubeList);
             if (_cubeList.Count == 0) // check if the cube list is empty 
             { // mesaage of empty list
                 Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
             }
             else
             { // list cubes
-                Console.WriteLine("List of registered cubes: \n");
+                Console.WriteLine("List of available cubes: \n");
                 //cubeList.Sort(cubeObject._idCube);
                 foreach (Cube item in _cubeList)
                 {
@@ -145,67 +166,124 @@ namespace ConsoleApp2
                 }
                 Console.Write("\nChoose the cube number you want to rent: ");
                 _idCubeToRent = Int16.Parse(Console.ReadLine());
-                _cubeIndex = _cubeList.FindIndex(a => a._idCube == _idCubeToRent);
+                _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToRent);
+
                 if (_cubeIndex == -1)  // check if input is greater than list count
                 {
                     Console.Write("\nNot a valid input! Try again. ");
                 }
                 else
                 {
+                    if (_cubeList[_cubeIndex].IsAvailable() == false)
+                    {
+                        Console.Write($"\nThe cube #{_idCubeToRent} is not available! Actually is rented by {_cubeList[_cubeIndex].GetOwnerName()} Choose another one. Press <enter> to continue...");
 
-                    if (_ownerList.Count == 0) // check if the owner list is empty 
-                    { // mesaage of empty list
-                        Console.WriteLine("Your owners list is empty! Add a product/service cube from the Cube Menu.");
                     }
                     else
-                    { // list owners
-                        Console.WriteLine("\nList of registered owners: \n");
-                        _ownerList.Sort(delegate (Person x, Person y)
-                        {
-                            return x._name.CompareTo(y._name);
-                        });
-                        foreach (Person item in _ownerList)
-                        {
-                            Console.WriteLine($"{item.ToString()}");
-                        }
-                        Console.Write($"\nChoose the owner's Id who wants to rent cube #{_idCubeToRent}: ");
-                        _idOwnerToRent = Int16.Parse(Console.ReadLine());
-                        _ownerIndex = _ownerList.FindIndex(a => a._id == _idOwnerToRent);
-
-                        if (_ownerIndex == -1)
-                        {
-                            Console.Write("\nNot a valid input! Try again. ");
-
+                    {
+                        if (_ownerList.Count == 0) // check if the owner list is empty 
+                        { // mesaage of empty list
+                            Console.WriteLine("Your owners list is empty! Add a product/service cube from the Cube Menu.");
                         }
                         else
-                        {
-                            Console.WriteLine(_cubeList[_cubeIndex].GetType().ToString());
-                            if (_cubeList[_cubeIndex].GetType().ToString()== "ConsoleApp2.ProductCube")
+                        { // list owners
+                            Console.WriteLine("\nList of registered owners: \n");
+                            _ownerList.Sort(delegate (Person x, Person y)
                             {
-                                Console.Write("Enter the service name: ");
-                                string _serviceName=Console.ReadLine();
-                                _cubeList[_cubeIndex].AddService(_serviceName);
+                                return x._name.CompareTo(y._name);
+                            });
+                            foreach (Person item in _ownerList)
+                            {
+                                Console.WriteLine($"{item.ToString()}");
+                            }
+                            Console.Write($"\nChoose the owner's Id who wants to rent cube #{_idCubeToRent}: ");
+                            _idOwnerToRent = Int16.Parse(Console.ReadLine());
+                            _ownerIndex = _ownerList.FindIndex(a => a._id == _idOwnerToRent);
+
+                            if (_ownerIndex == -1)
+                            {
+                                Console.Write("\nNot a valid input! Try again. ");
+
+                            }
+                            else
+                            {
+                                //Console.WriteLine(_cubeList[_cubeIndex].GetType().ToString());
+                                if (_cubeList[_cubeIndex].GetType().ToString() == "FinalProject.ServiceCube")
+                                {
+                                    Console.Write($"\nEnter the service name for cube #{_idCubeToRent}: ");
+                                    string _serviceName = Console.ReadLine();
+                                    _cubeList[_cubeIndex].AddService(_serviceName);
+                                }
+
+                                _cubeList[_cubeIndex].AddOwner(_ownerList[_ownerIndex]._name);
+                                Console.Write($"\nThe cube #{_idCubeToRent} is now rented by {_ownerList[_ownerIndex]._name}. Press <enter> to continue...");
+
                             }
 
-                            _cubeList[_cubeIndex].AddOwner(_ownerList[_ownerIndex]._name);
-                            Console.Write($"\nThe cube #{_idCubeToRent} is now rented by {_ownerList[_ownerIndex]._name}. Press <enter> to continue...");
-
                         }
-
                     }
+
+
 
                 }
             }
             Console.ReadLine();
         }
+        public void ReleaseCube()
+        {
+            int _idCubeToRelease;
+            Console.Clear();
+            Console.WriteLine("Release a cube: \n");
+            _cubeObject.List(_cubeList);
+
+            if (_cubeList.Count == 0) // check if the cube list is empty 
+            { // mesaage of empty list
+                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
+            }
+            else
+            { // list cubes
+                Console.WriteLine("List of available cubes: \n");
+                //cubeList.Sort(cubeObject._idCube);
+                int _cubesToRelease = 0;
+                foreach (Cube item in _cubeList)
+                {
+                    if (item.IsAvailable() == false)
+                    {
+                        Console.WriteLine($"{item.ToString()}");
+                        _cubesToRelease++;
+                    }
+                }
+                if (_cubesToRelease == 0)
+                {
+                    Console.Write("There are no cubes to realease!");
+                }
+                else
+                {
+                    Console.Write("\nChoose the cube's number you want to release: ");
+                    _idCubeToRelease = Int16.Parse(Console.ReadLine());
+                    _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToRelease);
+                    if (_cubeIndex == -1)  // check if input is greater than list count
+                    {
+                        Console.Write("\nNot a valid input! Try again. ");
+                    }
+                    else
+                    {
+                        _cubeList[_cubeIndex].Release();
+                        Console.Write($"The cube #{_idCubeToRelease} is now available!.");
+                    }
+                }
+
+            }
+            Console.Write(" Press <enter> to continue...");
+            Console.ReadLine();
+
+        }
         public void DeleteCube()
         {
             int _idCubeToDelete;
             Console.Clear();
-            _cubeList.Sort(delegate (Cube x, Cube y)
-            {
-                return x._idCube.CompareTo(y._idCube);
-            });
+            _cubeObject.List(_cubeList);
+
             if (_cubeList.Count == 0) // check if the cube list is empty 
             { // mesaage of empty list
                 Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
@@ -215,22 +293,21 @@ namespace ConsoleApp2
                 Console.WriteLine("Delete cube's information: \n");
                 Console.WriteLine("List of registered cubes: \n");
                 //cubeList.Sort(cubeObject._idCube);
-                _counter = 1;
                 foreach (Cube item in _cubeList)
                 {
-                    Console.WriteLine($"{_counter}. {item.ToString()}");
-                    _counter++;
+                    Console.WriteLine($"{item.ToString()}");
                 }
-                Console.Write("\nChoose the list number to delete: ");
+                Console.Write("\nChoose the cube's number to delete: ");
                 _idCubeToDelete = Int16.Parse(Console.ReadLine());
-                if (_idCubeToDelete > _cubeList.Count)  // check if input is greater than list count
+                _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToDelete); //find index
+
+                if (_cubeIndex == -1)  // check if input is greater than list count
                 {
                     Console.Write("\nNot a valid input! Try again. ");
                 }
                 else
                 {
-                    _idCubeToDelete--;
-                    _cubeList.RemoveRange(_idCubeToDelete, 1);
+                    _cubeList.RemoveRange(_cubeIndex, 1);
                     Console.Write($"\nThe cube information has been deleted! ");
                 }
             }
@@ -246,17 +323,11 @@ namespace ConsoleApp2
             }
             else
             { // list cubes
-                _cubeList.Sort(delegate (Cube x, Cube y)
-                {
-                    return x._idCube.CompareTo(y._idCube);
-                });
-
+                _cubeObject.List(_cubeList);
                 Console.WriteLine("List of registered cubes: \n");
-                _counter = 1;
                 foreach (Cube item in _cubeList)
                 {
-                    Console.WriteLine($"{_counter}. {item.ToString()}");
-                    _counter++;
+                    Console.WriteLine($"{item.ToString()}");
                 }
             }
             Console.Write("\nPress <enter> to continue...");

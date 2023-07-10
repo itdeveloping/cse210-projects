@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp2
+namespace FinalProject
 {
     public class Cube
     {
-        public int _idCube;
-        public double _price;
+        protected int _idCube;
+        protected double _price;
         protected bool _available;
         protected string _ownerName;
         protected string _serviceName;
@@ -18,9 +18,20 @@ namespace ConsoleApp2
             _idCube = number;
             _price = price;
             _available = available;
-            _ownerName = "";
+            _ownerName = null;
         }
-
+        public int GetIdCube()
+        { 
+            return _idCube; 
+        }
+        public virtual void SetPrice(double price)
+        {
+            _price = price;
+        }
+        public string GetOwnerName()
+        {
+            return _ownerName;
+        }
         public virtual void AddOwner(string ownerName)
         {
             _ownerName = ownerName;
@@ -34,6 +45,8 @@ namespace ConsoleApp2
         public void Release()
         {
             _available = true;
+            _ownerName = null;
+            _serviceName = null;
         }
 
         public bool IsAvailable()
@@ -41,6 +54,13 @@ namespace ConsoleApp2
             return _available;
         }
 
+        public void List(List<Cube> _cubeList)
+        {
+            _cubeList.Sort(delegate (Cube x, Cube y)
+            {
+                return x._idCube.CompareTo(y._idCube);
+            });
+        }
         public override string ToString()
         {
             if (_available)

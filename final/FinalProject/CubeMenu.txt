@@ -4,4 +4,5 @@
 4. Update a cube
 5. Delete a cube
 6. Rent a cube
-7. Back to main menu <-
+7. Release a cube
+8. Back to main menu <-
