@@ -8,40 +8,44 @@ namespace FinalProject
 {
     public class Product
     {
-        public string _name;
-        public string _description;
-        public string _brand;
-        public double _price;
-        public int _stock;
-
-        public Product(string name, string description) // for service sub class
+        protected string _brand, _name, _description;
+        protected double _price;
+        protected int _stock;
+        protected int _idCube;
+        public Product( string brand, string name, string description, double price, int stock)
         {
-            _name = name;
-            _description = description;
-        }
-
-
-        public Product(string name, string description, string brand, double price, int stock)
-        {
-            _name = name;
-            _description = description;
             _brand = brand;
+            _name = name;
+            _description = description;
             _price = price;
             _stock = stock;
-
         }
-        public virtual void DeleteProduct()
+
+        public string GetName()
         {
-
+            return _name; 
         }
-        
-        public virtual void ListProduct()
+        public void AssignCube(int idCube)
         {
-
+            _idCube = idCube;
         }
+        public Product(string name, string description, double price) // for service sub class
+        {
+            _name = name;
+            _description = description;
+            _price = price;
+        }
+
         public override string ToString()
         {
-            return $"{_name} by {_brand} , {_description}, price ${_price}, stock: {_stock}";
+            if (_idCube == 0)
+            {
+                return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}";
+            }
+            else
+            {
+                return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}, assigned cube: #{_idCube}";
+            }
         }
     }
 }

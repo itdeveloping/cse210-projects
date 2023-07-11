@@ -9,15 +9,23 @@ namespace FinalProject
     public class Service : Product
     {
         private string _provider;
-        public Service(string name, string description, string provider) :base (name, description)
-        { 
+        public Service(string name, string description, double price, string provider) : base(name, description, price)
+        {
             _name = name;
             _description = description;
+            _price = price;
             _provider = provider;
         }
         public override string ToString()
         {
-            return $"Service: {_name} {_description}, provider: {_provider}";
+            if (_idCube == 0)
+            {
+                return $"Service: {_name}, {_description} by {_provider}, price: ${_price}";
+            }
+            else
+            {
+                return $"Service: {_name}, {_description} by {_provider}, price: ${_price}, assigned cube: #{_idCube}";
+            }
         }
     }
 }

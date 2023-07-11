@@ -12,12 +12,12 @@ namespace FinalProject
         public string _email;
         public string _phone;
         public int _id;
-        public Person(string name, string email, string phone, int id)
+        public Person( int id,string name, string email, string phone)
         {
+            _id = id;
             _name = name;
             _email = email;
             _phone = phone;
-            _id = id;
         }
         public virtual void AddCube(Cube cube)
         {

@@ -10,53 +10,17 @@ Menu productMenu = new("ProductMenu.txt", " Product menu options: ");
 Menu productKindMenu = new("ProductKindMenu.txt", " Types of product menu options: ");
 Menu ownerMenu = new("OwnerMenu.txt", " Owner menu options: ");
 Menu customerMenu = new("CustomerMenu.txt", "Customer menu options: ");
-int counter, selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption, idProduct, idProductToDelete, idProductToUpdate, idOwner, idOwnerToDelete, idOwnerToUpdate, idCustomer, stock;
+int counter, selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption, idProductToDelete, idProductToUpdate, idOwner, idOwnerToDelete, idOwnerToUpdate, idCustomer, stock;
 string brand, name, description, size, provider, quantity, email, phone;
 double price;
 
-/*List<Cube> cubeList = new List<Cube>();
-Cube cubeObject;*/
+
 List<Product> productList = new List<Product>();
 Product productObject;
 List<Person> customerList = new List<Person>();
 Person customerObject;
 List<Person> ownerList = new List<Person>();
 Person ownerObject;
-
-
-//add cubes samples
-//cubeObject = new ProductCube(1, 15.21, true);
-//cubeList.Add(cubeObject);
-//cubeObject = new ProductCube(3, 10.19, false);
-//cubeList.Add(cubeObject);
-//cubeObject = new ProductCube(2, 9.4, true);
-//cubeList.Add(cubeObject);
-//cubeObject = new ServiceCube(2, 9.4, true);
-//cubeList.Add(cubeObject);
-
-//add owners samples
-ownerObject = new Owner("Oscar Rodriguez", "oscar@gmail.com", "8342158421", 3);
-ownerList.Add(ownerObject);
-ownerObject = new Owner("Mercedes Ramirez", "mercedes@gmail.com", "8342158422", 1);
-ownerList.Add(ownerObject);
-
-//add customers samples
-customerObject = new Customer("Public", "email@hotmail.com", "65231", 1);
-customerList.Add(customerObject);
-customerObject = new Customer("John", "john@gmail.com", "965231452", 2);
-customerList.Add(customerObject);
-
-// add product samples
-productObject = new Product("Wood Pencils", "No. 2 Wood Pencils, 12 Count", "Pen+Gear", 0.47, 20);
-productList.Add(productObject);
-DateOnly dateOnly = new DateOnly(2023, 12, 31);
-productObject = new Food("Potato Chips", " Classic Potato Chips, 8 oz Bag", "Lay's", 2.76, 50, dateOnly);
-productList.Add(productObject);
-productObject = new Clothe("Short", "Men's Yukon Stretch Twill Flat Front Short", "IRON Clothing", 9.99, 15, "M");
-productList.Add(productObject);
-productObject = new Cosmetic("Body Fragrance Mist", "Wild Wave Rider Ocean Splash", "Justice", 5.98, 15, "8.4 fl oz");
-productList.Add(productObject);
-
 
 Manager manager = new Manager();
 //start with main menu
@@ -81,205 +45,24 @@ while (selectedOption != 6) // Main menu option
                 {
                     case 1: // Cube menu: Add a product cube
                         manager.AddProductCube();
-
-                        //Console.Clear();
-                        //Console.WriteLine("Add a product cube: \n");
-                        //Console.Write("What is the number of the cube? ");
-                        //idCube = Int16.Parse(Console.ReadLine());
-                        //Console.Write($"What is the price for cube #{idCube}? ");
-                        //price = double.Parse(Console.ReadLine());
-
-                        //cubeObject = new ProductCube(idCube, price, true);
-                        //cubeList.Add(cubeObject);
-                        //Console.Write("\nYour --product cube-- has been added. Press <enter> to continue...");
-                        //Console.ReadLine();
-
                         break;
                     case 2: // Cube menu: Add a service cube
                         manager.AddServiceCube();
-                        //Console.Clear();
-
-                        //Console.WriteLine("Add a service cube: \n");
-                        //Console.Write("What is the number of the cube? ");
-                        //idCube = Int16.Parse(Console.ReadLine());
-                        //Console.Write($"What is the price for cube #{idCube}? ");
-                        //price = double.Parse(Console.ReadLine());
-                        //cubeObject = new ServiceCube(idCube, price, true);
-                        //cubeList.Add(cubeObject);
-                        //Console.Write("\nYour --service cube-- has been added. Press <enter> to continue...");
-                        //Console.ReadLine();
                         break;
                     case 3: // Cube menu: List cubes
                         manager.ListCubes();
-                        //Console.Clear();
-                        //if (cubeList.Count == 0) // check if the cube list is empty 
-                        //{ // mesaage of empty list
-                        //    Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-                        //}
-                        //else
-                        //{ // list cubes
-                        //    cubeList.Sort(delegate (Cube x, Cube y)
-                        //    {
-                        //        return x._idCube.CompareTo(y._idCube);
-                        //    });
-
-                        //    Console.WriteLine("List of registered cubes: \n");
-                        //    counter = 1;
-                        //    foreach (Cube item in cubeList)
-                        //    {
-                        //        Console.WriteLine($"{counter}. {item.ToString()}");
-                        //        counter++;
-                        //    }
-                        //}
-                        //Console.Write("\nPress <enter> to continue...");
-                        //Console.ReadLine();
                         break;
                     case 4: // Cube menu: Update cube's information 
                         manager.UpdateCube();
-                        /*Console.Clear();
-                        if (cubeList.Count == 0) // check if the cube list is empty 
-                        { // mesaage of empty list
-                            Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-                        }
-                        else
-                        { // list cubes
-                            cubeList.Sort(delegate (Cube x, Cube y)
-                            {
-                                return x._idCube.CompareTo(y._idCube);
-                            });
-                            Console.WriteLine("Update cube's information: \n");
-                            Console.WriteLine("List of registered cubes: \n");
-                            counter = 1;
-                            foreach (Cube item in cubeList)
-                            {
-                                Console.WriteLine($"{counter}. {item.ToString()}");
-                                counter++;
-                            }
-                            Console.Write("\nSelect the list number to update: ");
-                            idCubeToUpdate = Int16.Parse(Console.ReadLine());
-                            if (idCubeToUpdate > cubeList.Count)  // check if input is greater than list count
-                            {
-                                Console.Write("\nNot a valid input! Try again. ");
-                            }
-                            else
-                            {
-                                idCubeToUpdate--;
-
-                                Console.Write("What is the number of the cube? ");
-                                idCube = Int16.Parse(Console.ReadLine());
-                                Console.Write($"What is the price for cube #{idCube}? ");
-                                price = double.Parse(Console.ReadLine());
-                                cubeList[idCubeToUpdate]._idCube = idCube;
-                                cubeList[idCubeToUpdate]._price = price;
-                                Console.Write("\nYour --service cube-- has been updated! ");
-                            }
-
-                        }
-                        Console.Write("Press <enter> to continue... ");
-
-                        Console.ReadLine();*/
-
                         break;
                     case 5: // Cube menu: Delete cube's information
                         manager.DeleteCube();
-                        /* Console.Clear();
-                         _cubeList.Sort(delegate (Cube x, Cube y)
-                         {
-                             return x._idCube.CompareTo(y._idCube);
-                         });
-                         if (_cubeList.Count == 0) // check if the cube list is empty 
-                         { // mesaage of empty list
-                             Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-                         }
-                         else
-                         { // list cubes
-                             Console.WriteLine("Delete cube's information: \n");
-                             Console.WriteLine("List of registered cubes: \n");
-                             //cubeList.Sort(cubeObject._idCube);
-                             _counter = 1;
-                             foreach (Cube item in _cubeList)
-                             {
-                                 Console.WriteLine($"{_counter}. {item.ToString()}");
-                                 counter++;
-                             }
-                             Console.Write("\nChoose the list number to delete: ");
-                             _idCubeToDelete = Int16.Parse(Console.ReadLine());
-                             if (idCubeToDelete > _cubeList.Count)  // check if input is greater than list count
-                             {
-                                 Console.Write("\nNot a valid input! Try again. ");
-                             }
-                             else
-                             {
-                                 _idCubeToDelete--;
-                                 _cubeList.RemoveRange(_idCubeToDelete, 1);
-                                 Console.Write($"\nThe cube information has been deleted! ");
-                             }
-                         }
-                         Console.Write("Press <enter> to continue... ");
-                         Console.ReadLine();*/
                         break;
-                    case 6: // rent a cube
+                    case 6: // Rent a cube
                         manager.RentCube();
-                        /* Console.Clear();
-                         Console.WriteLine("Rent a cube: \n");
-                         _cubeList.Sort(delegate (Cube x, Cube y)
-                         {
-                             return x._idCube.CompareTo(y._idCube);
-                         });
-                         if (_cubeList.Count == 0) // check if the cube list is empty 
-                         { // mesaage of empty list
-                             Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-                         }
-                         else
-                         { // list cubes
-                             Console.WriteLine("List of registered cubes: \n");
-                             //cubeList.Sort(cubeObject._idCube);
-                             _counter = 1;
-                             foreach (Cube item in _cubeList)
-                             {
-                                 if (item.IsAvailable() == true)
-                                 {
-                                     Console.WriteLine($"{_counter}. {item.ToString()}");
-                                     _counter++;
-                                 }
-                             }
-                             Console.Write("\nChoose the cube you want to rent: ");
-                             idCubeToRent = Int16.Parse(Console.ReadLine());
-                             if (idCubeToRent > cubeList.Count)  // check if input is greater than list count
-                             {
-                                 Console.Write("\nNot a valid input! Try again. ");
-                             }
-                             else
-                             {
-                                 if (ownerList.Count == 0) // check if the owner list is empty 
-                                 { // mesaage of empty list
-                                     Console.WriteLine("Your owners list is empty! Add a product/service cube from the Cube Menu.");
-                                 }
-                                 else
-                                 { // list owners
-                                     Console.WriteLine("List of registered owners: \n");
-                                     ownerList.Sort(delegate (Person x, Person y)
-                                     {
-                                         return x._name.CompareTo(y._name);
-                                     });
-                                     counter = 1;
-                                     foreach (Person item in ownerList)
-                                     {
-                                         Console.WriteLine($"{counter}. {item.ToString()}");
-                                         counter++;
-                                     }
-                                     Console.Write($"\nChoose the owner's name who want to rent cube #{idCubeToRent}:");
-                                     idOwnerToRent=Int16.Parse(Console.ReadLine());
-
-                                     Console.Write($"\nThe cube is rented ");
-                                 }
-
-                             }
-                         }
-                         Console.ReadLine();*/
                         break;
-                        case 7:
-                            manager.ReleaseCube();
+                    case 7:
+                        manager.ReleaseCube();
                         break;
                     default: //not a valid option
                         Console.WriteLine($"\n{cubeOption} is not a valid option! Try again, press <enter> to continue...");
@@ -296,94 +79,38 @@ while (selectedOption != 6) // Main menu option
             productMenu.DisplayMenu();
             Console.Write("\nChoose an option from the list: ");
             productOption = Int16.Parse(Console.ReadLine());
-            while (productOption != 6) // Kinds of products menu options
+            while (productOption != 7) // Kinds of products menu options
             {
                 switch (productOption) // kinds of products selected option
                 {
-                    case 1: // create a product/service
+                    case 1: // Add a product/service
                         productKindMenu.DisplayMenu();
                         Console.Write("\nChoose an option from list: ");
                         productKindOption = Int16.Parse(Console.ReadLine());
-                        while (productKindOption != 5)
+                        while (productKindOption != 6)
                         {
 
                             switch (productKindOption)
                             {
-                                case 1: //register a general product
-                                    Console.Clear();
-                                    Console.WriteLine("Register a general product.\n");
-                                    Console.Write("What is the brand of the product: ");
-                                    brand = Console.ReadLine();
-                                    Console.Write("What is the name of the product: ");
-                                    name = Console.ReadLine();
-                                    Console.Write($"Type a brief description for {brand} {name}: ");
-                                    description = Console.ReadLine();
-                                    Console.Write($"What is the price for {brand} {name}: ");
-                                    price = double.Parse(Console.ReadLine());
-                                    Console.Write($"What is the stock for {brand} {name}: ");
-                                    stock = Int16.Parse(Console.ReadLine());
-                                    productObject = new Product(name, description, brand, price, stock);
-                                    productList.Add(productObject);
-                                    Console.Write($"\nYour -- {brand} {name} -- has been registered!. Press <enter> to continue...");
-                                    Console.ReadLine();
+                                case 1: //Register a general product
+                                    manager.AddProduct("new");
+                                    
                                     break;
-                                case 2: // register clothes
-                                    Console.Clear();
-                                    Console.WriteLine("Register clothes.\n");
-                                    Console.Write("What is the brand of the clothes: ");
-                                    brand = Console.ReadLine();
-                                    Console.Write("What is the clothes' name: ");
-                                    name = Console.ReadLine();
-                                    Console.Write($"Type a brief description for {brand} {name}: ");
-                                    description = Console.ReadLine();
-                                    Console.Write($"What is the size for {brand} {name} (xs|s|m|l|xl|xxl): ");
-                                    size = Console.ReadLine().ToUpper();
-                                    Console.Write($"What is the price for {brand} {name}: ");
-                                    price = double.Parse(Console.ReadLine());
-                                    Console.Write($"What is the stock for {brand} {name}: ");
-                                    stock = Int16.Parse(Console.ReadLine());
-                                    productObject = new Clothe(name, description, brand, price, stock, size);
-                                    productList.Add(productObject);
-                                    Console.Write($"\nYour -- {brand} {name} -- has been registered!. Press <enter> to continue...");
-                                    Console.ReadLine();
+                                case 2: // Register clothes
+                                    manager.AddClothes("new");
+                                   
                                     break;
-                                case 3: // register cosmetics
-                                    Console.Clear();
-                                    Console.WriteLine("Register cosmetic.\n");
-                                    Console.Write("What is the brand of the cosmetic: ");
-                                    brand = Console.ReadLine();
-                                    Console.Write("What is the cosmetic's name: ");
-                                    name = Console.ReadLine();
-                                    Console.Write($"Type a brief description for {brand} {name}: ");
-                                    description = Console.ReadLine();
-                                    Console.Write($"What is the quantity(ex. 100 ml) for {brand} {name}: ");
-                                    quantity = Console.ReadLine();
-                                    Console.Write($"What is the price for {brand} {name}: ");
-                                    price = double.Parse(Console.ReadLine());
-                                    Console.Write($"What is the stock for {brand} {name}: ");
-                                    stock = Int16.Parse(Console.ReadLine());
-                                    productObject = new Cosmetic(name, description, brand, price, stock, quantity);
-                                    productList.Add(productObject);
-                                    Console.Write($"\nYour -- {brand} {name} -- cosmetic has been registered!. Press <enter> to continue...");
-                                    Console.ReadLine();
-                                    break;
-                                case 4: // list products/services
+                                case 3: // Register cosmetics
+                                    manager.AddCosmetic("new");
 
-                                    productList.Sort(delegate (Product x, Product y)
-                                    {
-                                        return x._name.CompareTo(y._name);
-                                    });
+                                    break;
+                                case 4: // Register  food
+                                    manager.AddFood("new");
 
-                                    Console.Clear();
-                                    Console.WriteLine("Products list:\n");
-                                    counter = 1;
-                                    foreach (Product item in productList)
-                                    {
-                                        Console.WriteLine($"{counter}. {item.ToString()}");
-                                        counter++;
-                                    }
-                                    Console.Write("\nPress <enter> to continue... ");
-                                    Console.ReadLine();
+                                    break;
+                                case 5: // list products/services
+                                    manager.ListProducts();
+
                                     break;
                                 default://not a valid option
                                     Console.WriteLine($"\n{productKindOption} is not a valid option! Try again, press <enter> to continue...");
@@ -395,111 +122,22 @@ while (selectedOption != 6) // Main menu option
                         }
                         break;
                     case 2: // register a service
-                        Console.Clear();
-                        Console.WriteLine("Register a service.\n");
-                        Console.Write("What is the service's name: ");
-                        name = Console.ReadLine();
-                        Console.Write($"Type a brief description for {name}: ");
-                        description = Console.ReadLine();
-                        Console.Write($"What is the provider's name for {name}: ");
-                        provider = Console.ReadLine();
-                        productObject = new Service(name, description, provider);
-                        productList.Add(productObject);
-                        Console.Write($"\nYour -- {name} -- service has been registered!. Press <enter> to continue...");
-                        Console.ReadLine();
+                        manager.AddService("new");
+
                         break;
                     case 3: // list products/services
-                        Console.Clear();
-                        productList.Sort(delegate (Product x, Product y)
-                        {
-                            return x._name.CompareTo(y._name);
-                        });
-                        Console.WriteLine("Products list:\n");
-                        counter = 1;
-                        foreach (Product item in productList)
-                        {
-                            Console.WriteLine($"{counter}. {item.ToString()}");
-                            counter++;
-                        }
-                        Console.Write("\nPress <enter> to continue... ");
-                        Console.ReadLine();
+                        manager.ListProducts();
+
                         break;
                     case 4://update a product/service
-                        Console.Clear();
-                        productList.Sort(delegate (Product x, Product y)
-                        {
-                            return x._name.CompareTo(y._name);
-                        });
-                        Console.WriteLine("Update product's information: \n");
-                        Console.WriteLine("Products list:\n");
-                        counter = 1;
-                        foreach (Product item in productList)
-                        {
-                            Console.WriteLine($"{counter}. {item.ToString()}");
-                            counter++;
-                        }
-                        Console.Write("\nSelect the list number to update: ");
-                        idProductToUpdate = Int16.Parse(Console.ReadLine());
-                        if (idProductToUpdate > productList.Count)  // check if input is greater than list count
-                        {
-                            Console.Write("\nNot a valid input! Try again. ");
-                        }
-                        else
-                        {
-                            idProductToUpdate--;
-                            /*
-                            Console.Write("What is the brand of the cosmetic: ");
-                            brand = Console.ReadLine();
-                            Console.Write("What is the cosmetic's: ");
-                            name = Console.ReadLine();
-                            Console.Write($"Type a brief description for {brand} {name}: ");
-                            description = Console.ReadLine();
-                            Console.Write($"What is the quantity(ex. 100 ml) for {brand} {name}: ");
-                            quantity = Console.ReadLine();
-                            Console.Write($"What is the price for {brand} {name}: ");
-                            price = double.Parse(Console.ReadLine());
-                            Console.Write($"What is the stock for {brand} {name}: ");
-                            stock = Int16.Parse(Console.ReadLine());
-                            productObject = new Clothe(name, description, brand, price, stock, quantity);
-                            productList.Add(productObject);
-                            Console.Write($"\nYour -- {brand} {name} -- cosmetic has been registered!. Press <enter> to continue...");
-                            Console.ReadLine();
-                            */
+                        manager.UpdateProduct();
 
-                            Console.Write("\nYour --service cube-- has been updated! ");
-                        }
-
-                        Console.Write("\nPress <enter> to continue... ");
-                        Console.ReadLine();
                         break;
                     case 5://delete a product/service
-                        Console.Clear();
-                        productList.Sort(delegate (Product x, Product y)
-                        {
-                            return x._name.CompareTo(y._name);
-                        });
-                        Console.WriteLine("Products list:\n");
-                        counter = 1;
-                        foreach (Product item in productList)
-                        {
-                            Console.WriteLine($"{counter}. {item.ToString()}");
-                            counter++;
-                        }
-                        Console.Write("\nChoose the list number to delete: ");
-                        idProductToDelete = Int16.Parse(Console.ReadLine());
-                        if (idProductToDelete > productList.Count)  // check if input is greater than list count
-                        {
-                            Console.Write("\nNot a valid input! Try again. ");
-                        }
-                        else
-                        {
-                            idProductToDelete--;
-                            productList.RemoveRange(idProductToDelete, 1);
-                            Console.Write($"\nThe product/service information has been deleted! ");
-                        }
-
-                        Console.Write("\nPress <enter> to continue... ");
-                        Console.ReadLine();
+                        manager.DeleteProduct();
+                        break;
+                    case 6: // Assign product/service to a cube
+                        manager.AssignProduct();
                         break;
                     default: //not a valid option
                         Console.WriteLine($"\n{productOption} is not a valid option! Try again, press <enter> to continue...");
@@ -519,7 +157,7 @@ while (selectedOption != 6) // Main menu option
                 switch (ownerOption) // Owner mselected option
                 {
                     case 1:// Register an owner
-                        Console.Clear();
+                        /*Console.Clear();
                         Console.WriteLine("Register an owner: \n");
                         Console.Write("What is the owner's name? ");
                         name = Console.ReadLine();
@@ -529,10 +167,10 @@ while (selectedOption != 6) // Main menu option
                         phone = Console.ReadLine();
                         Console.Write($"What is the {name}'s id? ");
                         idOwner = Int16.Parse(Console.ReadLine());
-                        ownerObject = new Owner(name, email, phone, idOwner);
+                        ownerObject = new Owner(idOwner,name, email, phone );
                         ownerList.Add(ownerObject);
                         Console.Write($"\n{name} has been register as owner. Press <enter> to continue...");
-                        Console.ReadLine();
+                        Console.ReadLine();*/
                         break;
                     case 2: //List owners
                         Console.Clear();
@@ -670,7 +308,8 @@ while (selectedOption != 6) // Main menu option
                 switch (customerOption)
                 {
                     case 1://Register a customer
-                        Console.Clear();
+                        manager.AddCustomer();
+                        /*Console.Clear();
                         Console.WriteLine("Register a customer: \n");
                         Console.Write("What is the customer's name? ");
                         name = Console.ReadLine();
@@ -685,7 +324,7 @@ while (selectedOption != 6) // Main menu option
                         customerObject = new Customer(name, email, phone, idCustomer);
                         customerList.Add(customerObject);
                         Console.Write($"\n{name}-- has been registered as customer. Press <enter> to continue...");
-                        Console.ReadLine();
+                        Console.ReadLine();*/
 
                         break;
                     case 2://List customers
@@ -776,7 +415,7 @@ while (selectedOption != 6) // Main menu option
                 customerOption = Int16.Parse(Console.ReadLine());
             }
             break;
-        case 5: // create a shopping list
+        case 5: // Screen reports
             Console.WriteLine();
             Console.ReadLine();
             break;

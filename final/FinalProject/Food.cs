@@ -8,14 +8,22 @@ namespace FinalProject
 {
     public class Food : Product
     {
-        private DateOnly _bestBy = new();
-        public Food(string name, string description, string brand, double price, int stock, DateOnly bestBy) : base(name, description, brand, price, stock)
+        private DateTime _bestBy = new();
+        public Food( string brand,string name, string description,  double price, int stock, DateTime bestBy) : base( brand,name, description,  price, stock)
         {
             _bestBy = bestBy;
         }
         public override string ToString()
         {
-            return $"{base.ToString()}, best by: {_bestBy}";
+            if (_idCube == 0)
+            {
+                return $"Food: {base.ToString()}, best by: {_bestBy.ToString("dddd, dd MMMM yyyy")}";
+            }
+            else
+            {
+                return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}, best by: {_bestBy.ToString("dddd, dd MMMM yyyy")}, assigned cube: #{_idCube}";
+            }
+
         }
     }
 }

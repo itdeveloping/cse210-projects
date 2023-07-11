@@ -2,5 +2,5 @@
 2. Manage products/service
 3. Manage owners
 4. Manage customers
-5. Create shopping list
+5. Screen reports
 6. Quit

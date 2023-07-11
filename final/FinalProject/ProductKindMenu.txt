@@ -1,5 +1,6 @@
 ﻿1. Add a general product
 2. Add clothes
 3. Add a cosmetics
-4. List products/services
-5. Back to product menu <-
+4. Add food
+5. List products/services
+6. Back to product menu <-

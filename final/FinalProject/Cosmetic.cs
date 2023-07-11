@@ -9,13 +9,21 @@ namespace FinalProject
     public class Cosmetic : Product
     {
         private string _quantity;
-        public Cosmetic(string name, string description, string brand, double price, int stock, string quantity) : base(name, description, brand, price, stock)
+        public Cosmetic( string brand, string name, string description, double price, int stock, string quantity) : base( brand, name, description, price, stock)
         {
             _quantity = quantity;
         }
         public override string ToString()
         {
-            return $"{_name} by {_brand}, {_description}, size: {_quantity}, price ${_price}, stock: {_stock}";
+            if (_idCube == 0)
+            {
+                return $"Cosmetic: {base.ToString()}, quantity: {_quantity}";
+            }
+            else
+            {
+                return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}, quantity: {_quantity}, assigned cube: #{_idCube}";
+            }
+
         }
     }
 }

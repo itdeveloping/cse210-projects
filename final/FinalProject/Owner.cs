@@ -9,7 +9,7 @@ namespace FinalProject
     public class Owner : Person
     {
         public List<Cube> _cubeList = new List<Cube>();
-        public Owner(string name, string email, string phone, int id) : base(name, email, phone,id)
+        public Owner( int id,string name, string email, string phone) : base(id,name, email, phone)
         {
             _cubeList = new List<Cube>();
         }
