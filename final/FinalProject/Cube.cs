@@ -8,17 +8,16 @@ namespace FinalProject
 {
     public class Cube
     {
-        protected int _idCube;
+        protected int _idCube, _idOwner;
         protected double _price;
         protected bool _available;
-        protected string _ownerName;
         protected string _serviceName;
         public Cube(int number, double price, bool available)
         {
             _idCube = number;
             _price = price;
             _available = available;
-            _ownerName = null;
+            _idOwner = 0;
         }
         public int GetIdCube()
         { 
@@ -28,13 +27,13 @@ namespace FinalProject
         {
             _price = price;
         }
-        public string GetOwnerName()
+        public int GetIdOwner()
         {
-            return _ownerName;
+            return _idOwner;
         }
-        public virtual void AddOwner(string ownerName)
+        public virtual void AddOwner(int idOwner)
         {
-            _ownerName = ownerName;
+            _idOwner = idOwner;
             _available = false;
         }
         public virtual void AddService(string serviceName)
@@ -45,7 +44,7 @@ namespace FinalProject
         public void Release()
         {
             _available = true;
-            _ownerName = null;
+            _idOwner = 0;
             _serviceName = null;
         }
 
@@ -66,9 +65,11 @@ namespace FinalProject
             if (_available)
                 return $"#{_idCube}, Price: $ {_price:0.00}, Available: Yes";
             else
-
-                return $"#{_idCube}, Price: $ {_price:0.00}, Available: No, Owner: {_ownerName}";
-
+            {
+                Manager manager = new Manager();
+                return $"#{_idCube}, Price: $ {_price:0.00}, Available: No, rented by: {manager.GetOwnerName(_idOwner)}";
+            }
+            
         }
     }
 }

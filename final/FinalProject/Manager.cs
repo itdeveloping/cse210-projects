@@ -8,7 +8,7 @@ namespace FinalProject
 {
     public class Manager
     {
-        private int _idCube, _cubeIndex, _idProduct, _stock, _idCustomer, _idOwner;
+        private int _counter, _idCube, _cubeIndex, _stock, _idCustomer, _idOwner, _ownerIndex;
         private string _name, _description, _brand, _size, _quantity, _provider, _email, _phone;
         private double _price;
         private DateTime _bestBy = new();
@@ -27,12 +27,13 @@ namespace FinalProject
         private List<Person> _ownerList = new List<Person>();
         private Person _ownerObject;
 
+
         public Manager()
         {
             //add owners samples
-            _ownerObject = new Owner(1,"Oscar Rodriguez", "oscar@gmail.com", "8342158421");
+            _ownerObject = new Owner(1, "Oscar Rodriguez", "oscar@gmail.com", "8342158421");
             _ownerList.Add(_ownerObject);
-            _ownerObject = new Owner(2,"Mercedes Ramirez", "mercedes@gmail.com", "8342158422");
+            _ownerObject = new Owner(2, "Mercedes Ramirez", "mercedes@gmail.com", "8342158422");
             _ownerList.Add(_ownerObject);
 
             //add cubes samples
@@ -67,6 +68,14 @@ namespace FinalProject
 
 
         }
+
+        public string GetOwnerName(int idOwner)
+        {
+            int _ownerIndex = _ownerList.FindIndex(a => a.GetId() == idOwner);
+
+            return $"{_ownerList[_ownerIndex].GetName()}";
+        }
+
         public void AddProductCube()
         {
             Console.Clear();
@@ -202,7 +211,7 @@ namespace FinalProject
                 {
                     if (_cubeList[_cubeIndex].IsAvailable() == false)
                     {
-                        Console.Write($"\nThe cube #{_idCubeToRent} is not available! Actually is rented by {_cubeList[_cubeIndex].GetOwnerName()} Choose another one. Press <enter> to continue...");
+                        Console.Write($"\nThe cube #{_idCubeToRent} is not available! Actually is rented by {_cubeList[_cubeIndex].GetIdOwner()} Choose another one. Press <enter> to continue...");
 
                     }
                     else
@@ -216,7 +225,7 @@ namespace FinalProject
                             Console.WriteLine("\nList of registered owners: \n");
                             _ownerList.Sort(delegate (Person x, Person y)
                             {
-                                return x._name.CompareTo(y._name);
+                                return x.GetId().CompareTo(y.GetId()); // sort by Id
                             });
                             foreach (Person item in _ownerList)
                             {
@@ -224,7 +233,7 @@ namespace FinalProject
                             }
                             Console.Write($"\nChoose the owner's Id who wants to rent cube #{_idCubeToRent}: ");
                             _idOwnerToRent = Int16.Parse(Console.ReadLine());
-                            _ownerIndex = _ownerList.FindIndex(a => a._id == _idOwnerToRent);
+                            _ownerIndex = _ownerList.FindIndex(a => a.GetId() == _idOwnerToRent);
 
                             if (_ownerIndex == -1)
                             {
@@ -241,8 +250,8 @@ namespace FinalProject
                                     _cubeList[_cubeIndex].AddService(_serviceName);
                                 }
 
-                                _cubeList[_cubeIndex].AddOwner(_ownerList[_ownerIndex]._name);
-                                Console.Write($"\nThe cube #{_idCubeToRent} is now rented by {_ownerList[_ownerIndex]._name}. Press <enter> to continue...");
+                                _cubeList[_cubeIndex].AddOwner(_ownerList[_ownerIndex].GetId());
+                                Console.Write($"\nThe cube #{_idCubeToRent} is now rented by {_ownerList[_ownerIndex].GetName()}. Press <enter> to continue...");
 
                             }
 
@@ -260,17 +269,14 @@ namespace FinalProject
             int _idCubeToRelease;
             Console.Clear();
             Console.WriteLine("Release a cube: \n");
-            _cubeObject.List(_cubeList);
+            //_cubeObject.List(_cubeList);
 
             if (_cubeList.Count == 0) // check if the cube list is empty 
-            { // mesaage of empty list
-                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-            }
+                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");// mesaage of empty list
             else
             { // list cubes
                 Console.WriteLine("List of available cubes: \n");
-                //cubeList.Sort(cubeObject._idCube);
-                int _cubesToRelease = 0;
+                int _cubesToRelease=0;
                 foreach (Cube item in _cubeList)
                 {
                     if (item.IsAvailable() == false)
@@ -280,25 +286,25 @@ namespace FinalProject
                     }
                 }
                 if (_cubesToRelease == 0)
-                {
-                    Console.Write("There are no cubes to realease!");
-                }
+                    Console.Write("\nThere are no cubes to realease!");
                 else
                 {
-                    Console.Write("\nChoose the cube's number you want to release: ");
+                    Console.Write("\nChoose the cube's id you want to release: ");
                     _idCubeToRelease = Int16.Parse(Console.ReadLine());
                     _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToRelease);
                     if (_cubeIndex == -1)  // check if input is greater than list count
-                    {
                         Console.Write("\nNot a valid input! Try again. ");
-                    }
                     else
                     {
-                        _cubeList[_cubeIndex].Release();
-                        Console.Write($"The cube #{_idCubeToRelease} is now available!.");
+                        if (_cubeList[_cubeIndex].IsAvailable() == true)
+                            Console.Write($"\nCube #{_idCubeToRelease} is aready available! No need to release. ");
+                        else
+                        {
+                            _cubeList[_cubeIndex].Release();
+                            Console.Write($"The cube #{_idCubeToRelease} is now available!.");
+                        }
                     }
                 }
-
             }
             Console.Write(" Press <enter> to continue...");
             Console.ReadLine();
@@ -311,9 +317,7 @@ namespace FinalProject
             _cubeObject.List(_cubeList);
 
             if (_cubeList.Count == 0) // check if the cube list is empty 
-            { // mesaage of empty list
-                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-            }
+                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");// mesaage of empty list
             else
             { // list cubes
                 Console.WriteLine("Delete cube's information: \n");
@@ -322,19 +326,14 @@ namespace FinalProject
                 foreach (Cube item in _cubeList)
                 {
                     if (item.IsAvailable() == true)
-                    {
                         Console.WriteLine($"{item.ToString()}");
-
-                    }
                 }
                 Console.Write("\nChoose the cube's number to delete: ");
                 _idCubeToDelete = Int16.Parse(Console.ReadLine());
                 _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToDelete); //find index
 
                 if (_cubeIndex == -1)  // check if input is greater than list count
-                {
                     Console.Write("\nNot a valid input! Try again. ");
-                }
                 else
                 {
                     if (_cubeList[_cubeIndex].IsAvailable() == false)
@@ -344,10 +343,10 @@ namespace FinalProject
                     }
                     else
                     {
-
+                        _cubeList.RemoveRange(_cubeIndex, 1);
+                        Console.Write($"\nThe cube information has been deleted! ");
                     }
-                    _cubeList.RemoveRange(_cubeIndex, 1);
-                    Console.Write($"\nThe cube information has been deleted! ");
+
                 }
             }
             Console.Write("Press <enter> to continue... ");
@@ -703,7 +702,7 @@ namespace FinalProject
                         }
                         else
                         {
-                            if (_cubeList[_idCubeToAssign].IsAvailable() == true)
+                            if (_cubeList[_cubeIndex].IsAvailable() == true)
                             {
                                 Console.Write($"Sorry! Cube #{_idCubeToAssign} must be rented by an owner before add a product! ");
 
@@ -760,27 +759,219 @@ namespace FinalProject
             _phone = Console.ReadLine();
 
 
-            _customerObject = new Customer(_idCustomer,_name, _email, _phone );
+            _customerObject = new Customer(_idCustomer, _name, _email, _phone);
             _customerList.Add(_customerObject);
             Console.Write($"\n{_name}-- has been registered as customer. Press <enter> to continue...");
+            Console.ReadLine();
+        }
+        public void ListCustomer()
+        {
+            Console.Clear();
+
+            if (_customerList.Count == 0) // check if the owner list is empty 
+            { // mesaage of empty list
+                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");
+            }
+            else
+            { // list owners
+                Console.WriteLine("List of registered customers: \n");
+                _customerList.Sort(delegate (Person x, Person y)
+                {
+                    return x.GetName().CompareTo(y.GetName());
+                });
+                _counter = 1;
+                foreach (Person item in _customerList)
+                {
+                    Console.WriteLine($"{_counter}. {item.ToString()}");
+                    _counter++;
+                }
+
+            }
+            Console.Write("\nPress <enter> to continue... ");
+            Console.ReadLine();
+        }
+        public void UpdateCustomer()
+        {
+            Console.Clear();
+
+            if (_customerList.Count == 0) // check if the owner list is empty 
+            { // mesaage of empty list
+                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");
+            }
+            else
+            { // list owners
+                Console.WriteLine("List of registered customers: \n");
+                _customerList.Sort(delegate (Person x, Person y)
+                {
+                    return x.GetName().CompareTo(y.GetName());
+                });
+                _counter = 1;
+                foreach (Person item in _customerList)
+                {
+                    Console.WriteLine($"{_counter}. {item.ToString()}");
+                    _counter++;
+                }
+
+            }
+
+            Console.Write("\nPress <enter> to continue... ");
+            Console.ReadLine();
+        }
+        public void DeleteCustomer()
+        {
+            Console.Clear();
+
+            if (_customerList.Count == 0) // check if the owner list is empty 
+            { // mesaage of empty list
+                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");
+            }
+            else
+            { // list owners
+                Console.WriteLine("List of registered customers: \n");
+                _customerList.Sort(delegate (Person x, Person y)
+                {
+                    return x.GetName().CompareTo(y.GetName());
+                });
+                _counter = 1;
+                foreach (Person item in _customerList)
+                {
+                    Console.WriteLine($"{_counter}. {item.ToString()}");
+                    _counter++;
+                }
+
+            }
+
+            Console.Write("\nPress <enter> to continue... ");
             Console.ReadLine();
         }
         public void AddOwner()
         {
             Console.Clear();
             Console.WriteLine("Register an owner: \n");
-            Console.Write($"What is the id for this owner? ");
-            _idOwner = Int16.Parse(Console.ReadLine());            
-            Console.Write("What is the owner's name? ");
-            _name = Console.ReadLine();
-            Console.Write($"What is the {_name}'s email? ");
-            _email = Console.ReadLine();
-            Console.Write($"What is the {_name}'s phone number? ");
-            _phone = Console.ReadLine();
+            Console.Write($"What is the Id for this owner? ");
+            _idOwner = Int16.Parse(Console.ReadLine());
+            _ownerIndex = _ownerList.FindIndex(a => a.GetId() == _idOwner); //find index
+            if (_ownerIndex != -1)
+            {
+                Console.Write($"\nThe Id({_idOwner}) is already in use by {_ownerList[_ownerIndex].GetName()}! Please choose another Id. ");
+                Console.Write("Press <enter> to continue...");
+                Console.ReadLine();
+                AddOwner();
+            }
+            else
+            {
+                Console.Write("What is the owner's name? ");
+                _name = Console.ReadLine();
+                Console.Write($"What is the {_name}'s email? ");
+                _email = Console.ReadLine();
+                Console.Write($"What is the {_name}'s phone number? ");
+                _phone = Console.ReadLine();
+                _ownerObject = new Owner(_idOwner, _name, _email, _phone);
+                _ownerList.Add(_ownerObject);
+                Console.Write($"\n{_name} has been registered as owner and is able to rent a cube. Press <enter> to continue...");
+                Console.ReadLine();
+            }
 
-            _ownerObject = new Owner(_idOwner, _name, _email, _phone);
-            _ownerList.Add(_ownerObject);
-            Console.Write($"\n{_name} has been register as owner. Press <enter> to continue...");
+        }
+        public void ListOwners()
+        {
+            Console.Clear();
+
+            if (_ownerList.Count == 0) // check if the owner list is empty 
+            { // mesaage of empty list
+                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.");
+            }
+            else
+            { // list owners
+                Console.WriteLine("List of registered owners: \n");
+                _ownerList.Sort(delegate (Person x, Person y)
+                {
+                    return x.GetId().CompareTo(y.GetId());
+                });
+                foreach (Person item in _ownerList)
+                {
+                    Console.WriteLine($"{item.ToString()}");
+                }
+
+            }
+            Console.Write("\nPress <enter> to continue... ");
+            Console.ReadLine();
+        }
+        public void UpdateOwner()
+        {
+            int _idOwnerToUpdate;
+            Console.Clear();
+
+            if (_ownerList.Count == 0) // check if the owner list is empty 
+                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.");// mesaage of empty list
+            else
+            { // list owners
+                Console.WriteLine("List of registered owners: \n");
+                _ownerList.Sort(delegate (Person x, Person y)
+                {
+                    return x.GetId().CompareTo(y.GetId());
+                });
+                foreach (Person item in _ownerList)
+                {
+                    Console.WriteLine($"{item.ToString()}");
+                }
+                Console.Write("\nSelect the owner's Id to update: ");
+                _idOwnerToUpdate = Int16.Parse(Console.ReadLine());
+                _ownerIndex = _ownerList.FindIndex(a => a.GetId() == _idOwnerToUpdate);
+                if (_ownerIndex == -1) // check if Id was found
+                    Console.Write("\nNot a valid input! Try again. ");
+                else
+                {
+                    Console.Write("\nWhat is the new owner's name? ");
+                    _name = Console.ReadLine();
+                    Console.Write($"What is the new {_name}'s email? ");
+                    _email = Console.ReadLine();
+                    Console.Write($"What is the new {_name}'s phone number? ");
+                    _phone = Console.ReadLine();
+                    _ownerList[_ownerIndex].SetData(_name, _email, _phone);
+                    Console.Write("\nThe owner's information has been updated! ");
+                }
+
+            }
+            Console.Write("Press <enter> to continue... ");
+            Console.ReadLine();
+        }
+        public void DeleteOwner()
+        {
+            int _idOwnerToDelete;
+            Console.Clear();
+
+            if (_ownerList.Count == 0) // check if the owner list is empty 
+                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.");// mesaage of empty list
+            else
+            { // list owners
+                Console.WriteLine("List of registered owners: \n");
+                _ownerList.Sort(delegate (Person x, Person y)
+                {
+                    return x.GetId().CompareTo(y.GetId());
+                });
+                foreach (Person item in _ownerList)
+                {
+                    Console.WriteLine($"{item.ToString()}");
+                }
+                Console.Write("\nSelect the owner's Id to delete: ");
+                _idOwnerToDelete = Int16.Parse(Console.ReadLine());
+                _ownerIndex = _ownerList.FindIndex(a => a.GetId() == _idOwnerToDelete);
+                if (_ownerIndex == -1)  // check if input is greater than list count
+                    Console.Write("\nNot a valid input! Try again. ");
+                else
+                {
+                    _cubeIndex = _cubeList.FindIndex(a => a.GetIdOwner() == _idOwnerToDelete);
+                    if (_cubeIndex == -1)
+                    {
+                        _ownerList.RemoveRange(_ownerIndex, 1);
+                        Console.Write($"\nThe owner information has been deleted! ");
+                    }
+                    else
+                        Console.Write($"\nThis owner can not be deleted because one o more cubes are rented by him/her! ");
+                }
+            }
+            Console.Write("Press <enter> to continue... ");
             Console.ReadLine();
         }
         public override string ToString()

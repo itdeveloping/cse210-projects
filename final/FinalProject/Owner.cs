@@ -8,7 +8,7 @@ namespace FinalProject
 {
     public class Owner : Person
     {
-        public List<Cube> _cubeList = new List<Cube>();
+        private List<Cube> _cubeList = new List<Cube>();
         public Owner( int id,string name, string email, string phone) : base(id,name, email, phone)
         {
             _cubeList = new List<Cube>();
