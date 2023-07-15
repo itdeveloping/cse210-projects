@@ -1,6 +1,5 @@
-﻿1. Manage cubes
-2. Manage products/service
-3. Manage owners
-4. Manage customers
-5. Screen reports
-6. Quit
+﻿1. Cubes
+2. Products & services
+3. Owners
+4. Customers
+5. Quit

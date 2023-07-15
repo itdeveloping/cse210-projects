@@ -18,13 +18,9 @@ namespace FinalProject
         public override string ToString()
         {
             if (_idCube == 0)
-            {
                 return $"Clothes: {base.ToString()}, size: {_size}";
-            }
             else
-            {
                 return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}, size: {_size}, assigned cube: #{_idCube}";
-            }
         }
     }
 }

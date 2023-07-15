@@ -8,7 +8,7 @@ namespace FinalProject
 {
     public class Manager
     {
-        private int _counter, _idCube, _cubeIndex, _stock, _idCustomer, _idOwner, _ownerIndex;
+        private int _idCube, _cubeIndex, _stock, _idCustomer, _idOwner, _ownerIndex, _customerIndex;
         private string _name, _description, _brand, _size, _quantity, _provider, _email, _phone;
         private double _price;
         private DateTime _bestBy = new();
@@ -68,14 +68,12 @@ namespace FinalProject
 
 
         }
-
         public string GetOwnerName(int idOwner)
         {
             int _ownerIndex = _ownerList.FindIndex(a => a.GetId() == idOwner);
 
             return $"{_ownerList[_ownerIndex].GetName()}";
         }
-
         public void AddProductCube()
         {
             Console.Clear();
@@ -276,7 +274,7 @@ namespace FinalProject
             else
             { // list cubes
                 Console.WriteLine("List of available cubes: \n");
-                int _cubesToRelease=0;
+                int _cubesToRelease = 0;
                 foreach (Cube item in _cubeList)
                 {
                     if (item.IsAvailable() == false)
@@ -286,7 +284,7 @@ namespace FinalProject
                     }
                 }
                 if (_cubesToRelease == 0)
-                    Console.Write("\nThere are no cubes to realease!");
+                    Console.Write("\nThere are no cubes to realease! ");
                 else
                 {
                     Console.Write("\nChoose the cube's id you want to release: ");
@@ -301,12 +299,12 @@ namespace FinalProject
                         else
                         {
                             _cubeList[_cubeIndex].Release();
-                            Console.Write($"The cube #{_idCubeToRelease} is now available!.");
+                            Console.Write($"\nThe cube #{_idCubeToRelease} is now available!. ");
                         }
                     }
                 }
             }
-            Console.Write(" Press <enter> to continue...");
+            Console.Write("Press <enter> to continue...");
             Console.ReadLine();
 
         }
@@ -314,8 +312,7 @@ namespace FinalProject
         {
             int _idCubeToDelete;
             Console.Clear();
-            _cubeObject.List(_cubeList);
-
+            //_cubeObject.List(_cubeList);
             if (_cubeList.Count == 0) // check if the cube list is empty 
                 Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");// mesaage of empty list
             else
@@ -331,22 +328,20 @@ namespace FinalProject
                 Console.Write("\nChoose the cube's number to delete: ");
                 _idCubeToDelete = Int16.Parse(Console.ReadLine());
                 _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToDelete); //find index
-
                 if (_cubeIndex == -1)  // check if input is greater than list count
                     Console.Write("\nNot a valid input! Try again. ");
                 else
                 {
                     if (_cubeList[_cubeIndex].IsAvailable() == false)
                     {
-                        Console.WriteLine($"\nThe cube #{_idCubeToDelete} can not be deleted! Cube must be available before deleting.");
-                        Console.WriteLine($"{_cubeList[_cubeIndex].ToString()} \n");
+                        Console.WriteLine($"\nThe cube #{_idCubeToDelete} can not be deleted! Cube must be available before deleting. Cube information:");
+                        Console.WriteLine($"\n{_cubeList[_cubeIndex].ToString()} \n");
                     }
                     else
                     {
                         _cubeList.RemoveRange(_cubeIndex, 1);
                         Console.Write($"\nThe cube information has been deleted! ");
                     }
-
                 }
             }
             Console.Write("Press <enter> to continue... ");
@@ -371,7 +366,7 @@ namespace FinalProject
             Console.Write("\nPress <enter> to continue...");
             Console.ReadLine();
         }
-        public void AddProduct(string option)
+        public void AddProduct(string option, int idCube)
         {
             if (option == "new")
             {
@@ -395,6 +390,7 @@ namespace FinalProject
             Console.Write($"What is the stock for {_brand} {_name}: ");
             _stock = Int16.Parse(Console.ReadLine());
             _productObject = new Product(_brand, _name, _description, _price, _stock);
+            _productObject.AssignCube(idCube);
             _productList.Add(_productObject);
             if (option == "new")
             {
@@ -403,7 +399,7 @@ namespace FinalProject
             }
 
         }
-        public void AddService(string option)
+        public void AddService(string option, int idCube)
         {
             if (option == "new")
             {
@@ -424,6 +420,7 @@ namespace FinalProject
             Console.Write($"What is the price for {_name}: ");
             _price = double.Parse(Console.ReadLine());
             _productObject = new Service(_name, _description, _price, _provider);
+            _productObject.AssignCube(idCube);
             _productList.Add(_productObject);
             if (option == "new")
             {
@@ -431,7 +428,7 @@ namespace FinalProject
                 Console.ReadLine();
             }
         }
-        public void AddClothes(string option)
+        public void AddClothes(string option, int idCube)
         {
             if (option == "new")
             {
@@ -456,6 +453,7 @@ namespace FinalProject
             Console.Write($"What is the stock for {_brand} {_name}: ");
             _stock = Int16.Parse(Console.ReadLine());
             _productObject = new Clothes(_name, _description, _brand, _price, _stock, _size);
+            _productObject.AssignCube(idCube);
             _productList.Add(_productObject);
             if (option == "new")
             {
@@ -463,7 +461,7 @@ namespace FinalProject
                 Console.ReadLine();
             }
         }
-        public void AddCosmetic(string option)
+        public void AddCosmetic(string option, int idCube)
         {
             if (option == "new")
             {
@@ -488,6 +486,7 @@ namespace FinalProject
             Console.Write($"What is the stock for {_brand} {_name}: ");
             _stock = Int16.Parse(Console.ReadLine());
             _productObject = new Cosmetic(_name, _description, _brand, _price, _stock, _quantity);
+            _productObject.AssignCube(idCube);
             _productList.Add(_productObject);
             if (option == "new")
             {
@@ -495,7 +494,7 @@ namespace FinalProject
                 Console.ReadLine();
             }
         }
-        public void AddFood(string option)
+        public void AddFood(string option, int idCube)
         {
             if (option == "new")
             {
@@ -521,6 +520,7 @@ namespace FinalProject
             _stock = Int16.Parse(Console.ReadLine());
             _productObject = new Food(_name, _description, _brand, _price, _stock, _bestBy);
             _productList.Add(_productObject);
+            _productObject.AssignCube(idCube);
             if (option == "new")
             {
                 Console.Write($"\nYour -- {_brand} {_name} -- food has been registered!. Press <enter> to continue...");
@@ -555,12 +555,9 @@ namespace FinalProject
         public void DeleteProduct()
         {
             Console.Clear();
-
             Console.WriteLine("Delete a product/service. Products list:\n");
             if (_productList.Count == 0)
-            {
                 Console.Write("\nThe are no registered products!");
-            }
             else
             {
                 _productList.Sort(delegate (Product x, Product y)
@@ -576,9 +573,7 @@ namespace FinalProject
                 Console.Write("\nChoose the list number to delete: ");
                 int _idProductToDelete = Int16.Parse(Console.ReadLine());
                 if (_idProductToDelete > _productList.Count)  // check if input is greater than list count
-                {
                     Console.Write("\nNot a valid input! Try again. ");
-                }
                 else
                 {
                     _idProductToDelete--;
@@ -586,8 +581,6 @@ namespace FinalProject
                     Console.Write($"\nThe product/service information has been deleted! ");
                 }
             }
-
-
             Console.Write("Press <enter> to continue... ");
             Console.ReadLine();
         }
@@ -624,28 +617,29 @@ namespace FinalProject
                     {
                         case "FinalProject.Product":
                             Console.WriteLine($"\nOriginal information ---{_productList[_idProductToUpdate].ToString()}---");
+
                             _productList.RemoveRange(_idProductToUpdate, 1);
-                            AddProduct("update");
+                            AddProduct("update", _productList[_idProductToUpdate].GetIdCube());
                             break;
                         case "FinalProject.Clothes":
                             Console.WriteLine($"\nOriginal information ---{_productList[_idProductToUpdate].ToString()}---");
                             _productList.RemoveRange(_idProductToUpdate, 1);
-                            AddClothes("update");
+                            AddClothes("update", _productList[_idProductToUpdate].GetIdCube());
                             break;
                         case "FinalProject.Food":
                             Console.WriteLine($"\nOriginal information ---{_productList[_idProductToUpdate].ToString()}---");
                             _productList.RemoveRange(_idProductToUpdate, 1);
-                            AddFood("update");
+                            AddFood("update", _productList[_idProductToUpdate].GetIdCube());
                             break;
                         case "FinalProject.Cosmetic":
                             Console.WriteLine($"\nOriginal information ---{_productList[_idProductToUpdate].ToString()}---");
                             _productList.RemoveRange(_idProductToUpdate, 1);
-                            AddCosmetic("update");
+                            AddCosmetic("update", _productList[_idProductToUpdate].GetIdCube());
                             break;
                         case "FinalProject.Service":
                             Console.WriteLine($"\nOriginal information ---{_productList[_idProductToUpdate].ToString()}---");
                             _productList.RemoveRange(_idProductToUpdate, 1);
-                            AddService("update");
+                            AddService("update", _productList[_idProductToUpdate].GetIdCube());
                             break;
                         default:
                             break;
@@ -665,9 +659,9 @@ namespace FinalProject
             Console.Clear();
             Console.WriteLine("Assign a product/service to a cube:");
             if (_cubeList.Count == 0) // check if the cube list is empty 
-            { // mesaage of empty list
-                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");
-            }
+
+                Console.WriteLine("Your cube list is empty! Add a product/service cube from the Cube Menu.");// mesaage of empty list
+
             else
             { // list cubes
                 _cubeObject.List(_cubeList);
@@ -683,7 +677,7 @@ namespace FinalProject
                 }
                 if (counter == 0)
                 {
-                    Console.Write("Sorry! Cubes must be rented by an owner before add a product! ");
+                    Console.Write("\nSorry! Cubes must be rented by an owner before add a product! ");
                 }
                 else
                 {
@@ -691,30 +685,23 @@ namespace FinalProject
                     _idCubeToAssign = Int16.Parse(Console.ReadLine());
                     _cubeIndex = _cubeList.FindIndex(a => a.GetIdCube() == _idCubeToAssign);
                     if (_cubeIndex == -1)
-                    {
                         Console.Write("\nNot a valid input!. Try again. ");
-                    }
                     else
                     {
                         if (_productList.Count == 0)
-                        {
                             Console.Write("\nThe are no registered products! ");
-                        }
                         else
                         {
                             if (_cubeList[_cubeIndex].IsAvailable() == true)
-                            {
-                                Console.Write($"Sorry! Cube #{_idCubeToAssign} must be rented by an owner before add a product! ");
-
-                            }
+                                Console.Write($"\nSorry! Cube #{_idCubeToAssign} must be rented by an owner before add a product! ");
                             else
                             {
                                 _productList.Sort(delegate (Product x, Product y)
-                                                            {
-                                                                return x.GetName().CompareTo(y.GetName());
-                                                            });
+                                {
+                                    return x.GetName().CompareTo(y.GetName());
+                                });
 
-                                Console.WriteLine("Products & services list:\n");
+                                Console.WriteLine("\nProducts & services list:\n");
                                 int _counter = 1;
                                 foreach (Product item in _productList)
                                 {
@@ -724,9 +711,8 @@ namespace FinalProject
                                 Console.Write($"\nSelect the product number you want to assign to cube #{_idCubeToAssign}: ");
                                 int _idProductToAssign = Int16.Parse(Console.ReadLine());
                                 if (_idProductToAssign > _productList.Count || _idProductToAssign < 1)
-                                {
+
                                     Console.Write("\nThe product number is not valid! Try again. ");
-                                }
                                 else
                                 {
                                     _productList[_idProductToAssign].AssignCube(_idCubeToAssign);
@@ -734,7 +720,6 @@ namespace FinalProject
 
                                 }
                             }
-
                         }
                     }
                 }
@@ -742,7 +727,6 @@ namespace FinalProject
             }
             Console.Write("Press <enter> to continue...");
             Console.ReadLine();
-
         }
         public void AddCustomer()
         {
@@ -769,21 +753,17 @@ namespace FinalProject
             Console.Clear();
 
             if (_customerList.Count == 0) // check if the owner list is empty 
-            { // mesaage of empty list
-                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");
-            }
+                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");// mesaage of empty list
             else
             { // list owners
                 Console.WriteLine("List of registered customers: \n");
                 _customerList.Sort(delegate (Person x, Person y)
                 {
-                    return x.GetName().CompareTo(y.GetName());
+                    return x.GetId().CompareTo(y.GetId());
                 });
-                _counter = 1;
                 foreach (Person item in _customerList)
                 {
-                    Console.WriteLine($"{_counter}. {item.ToString()}");
-                    _counter++;
+                    Console.WriteLine($"{item.ToString()}");
                 }
 
             }
@@ -792,56 +772,72 @@ namespace FinalProject
         }
         public void UpdateCustomer()
         {
+            int _idCustomerToUpdate;
             Console.Clear();
-
             if (_customerList.Count == 0) // check if the owner list is empty 
-            { // mesaage of empty list
-                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");
-            }
+                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu."); // mesaage of empty list
             else
             { // list owners
                 Console.WriteLine("List of registered customers: \n");
                 _customerList.Sort(delegate (Person x, Person y)
                 {
-                    return x.GetName().CompareTo(y.GetName());
+                    return x.GetId().CompareTo(y.GetId());
                 });
-                _counter = 1;
                 foreach (Person item in _customerList)
                 {
-                    Console.WriteLine($"{_counter}. {item.ToString()}");
-                    _counter++;
+                    Console.WriteLine($"{item.ToString()}");
                 }
-
+                Console.Write("\nSelect the customer's id to update: ");
+                _idCustomerToUpdate = Int16.Parse(Console.ReadLine());
+                _customerIndex = _customerList.FindIndex(a => a.GetId() == _idCustomerToUpdate);
+                if (_customerIndex == -1)
+                    Console.Write("Not a valid input ! ");
+                else
+                {
+                    Console.Write("What is the customer's new name? ");
+                    _name = Console.ReadLine();
+                    Console.Write($"What is the {_name}'s new email? ");
+                    _email = Console.ReadLine();
+                    Console.Write($"What is the {_name}'s new phone number? ");
+                    _phone = Console.ReadLine();
+                    _customerList[_customerIndex].SetData(_name, _email, _phone);
+                    Console.Write("\nThe customer information has been updated! ");
+                }
             }
-
-            Console.Write("\nPress <enter> to continue... ");
+            Console.Write("Press <enter> to continue... ");
             Console.ReadLine();
         }
         public void DeleteCustomer()
         {
+            int _idCustomerToDelete;
             Console.Clear();
 
             if (_customerList.Count == 0) // check if the owner list is empty 
-            { // mesaage of empty list
-                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");
-            }
+                Console.WriteLine("Your customers list is empty! Add acustomers from the customers Menu.");// mesaage of empty list
             else
             { // list owners
                 Console.WriteLine("List of registered customers: \n");
                 _customerList.Sort(delegate (Person x, Person y)
                 {
-                    return x.GetName().CompareTo(y.GetName());
+                    return x.GetId().CompareTo(y.GetId());
                 });
-                _counter = 1;
                 foreach (Person item in _customerList)
                 {
-                    Console.WriteLine($"{_counter}. {item.ToString()}");
-                    _counter++;
+                    Console.WriteLine($"{item.ToString()}");
                 }
-
+                Console.Write("\nType the customer's id to detele: ");
+                _idCustomerToDelete = Int16.Parse(Console.ReadLine());
+                _customerIndex = _customerList.FindIndex(a => a.GetId() == _idCustomerToDelete);
+                if (_customerIndex == -1)
+                    Console.Write("\nNot a valid input. Try again! ");
+                else
+                {
+                    _customerList.RemoveRange(_customerIndex, 1);
+                    Console.Write("\nThe customer information has been deleted! ");
+                }
             }
 
-            Console.Write("\nPress <enter> to continue... ");
+            Console.Write("Press <enter> to continue... ");
             Console.ReadLine();
         }
         public void AddOwner()
@@ -903,7 +899,7 @@ namespace FinalProject
             Console.Clear();
 
             if (_ownerList.Count == 0) // check if the owner list is empty 
-                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.");// mesaage of empty list
+                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.\n");// mesaage of empty list
             else
             { // list owners
                 Console.WriteLine("List of registered owners: \n");
@@ -942,7 +938,7 @@ namespace FinalProject
             Console.Clear();
 
             if (_ownerList.Count == 0) // check if the owner list is empty 
-                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.");// mesaage of empty list
+                Console.WriteLine("Your owners list is empty! Register a new owner from te owner's menu.\n");// mesaage of empty list
             else
             { // list owners
                 Console.WriteLine("List of registered owners: \n");

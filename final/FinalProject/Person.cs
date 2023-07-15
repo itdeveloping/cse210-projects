@@ -28,12 +28,10 @@ namespace FinalProject
             _name = name;
             _email = email;
             _phone = phone;
-
         }
         public override string ToString()
         {
             return $" Id: {_id}, {_name}, Email: {_email}, Phone: {_phone}";
         }
-
     }
 }

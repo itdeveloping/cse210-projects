@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace FinalProject
         protected double _price;
         protected bool _available;
         protected string _serviceName;
+        protected List<int> _productList = new List<int>();
         public Cube(int number, double price, bool available)
         {
             _idCube = number;
@@ -42,6 +44,7 @@ namespace FinalProject
         }
 
         public void Release()
+
         {
             _available = true;
             _idOwner = 0;

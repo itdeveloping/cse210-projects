@@ -17,6 +17,7 @@ namespace FinalProject
         {
             _price = price * 1.0825; // increase tax to service cubes
         }
+
         public override string ToString()
         {
             if (_available)

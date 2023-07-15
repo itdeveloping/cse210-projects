@@ -3,24 +3,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-
+//Instantiate the menu class for different options menus
 Menu mainMenu = new("MainMenu.txt", "Main menu options: ");
 Menu cubeMenu = new("CubeMenu.txt", " Cube menu options: ");
 Menu productMenu = new("ProductMenu.txt", " Product menu options: ");
 Menu productKindMenu = new("ProductKindMenu.txt", " Types of product menu options: ");
 Menu ownerMenu = new("OwnerMenu.txt", " Owner menu options: ");
 Menu customerMenu = new("CustomerMenu.txt", "Customer menu options: ");
+
+//Declare variables
 int selectedOption, cubeOption, productOption, productKindOption, ownerOption, customerOption;
 
-
+//Instantiate Manager class to manage Cube, Product, and Person base classes and class lists
 Manager manager = new Manager();
+
 //start with main menu
 Console.Clear();
 Console.WriteLine("Final Project - Shop manager\n");
 mainMenu.DisplayMenu();
 Console.Write("\nChoose an option from the list: ");
 selectedOption = Int16.Parse(Console.ReadLine());
-while (selectedOption != 6) // Main menu option
+while (selectedOption != 5) // Main menu option
 {
     switch (selectedOption) // Main menu selected options
     {
@@ -80,19 +83,19 @@ while (selectedOption != 6) // Main menu option
                             switch (productKindOption)
                             {
                                 case 1: //Register a general product
-                                    manager.AddProduct("new");
+                                    manager.AddProduct("new",0);
                                     
                                     break;
                                 case 2: // Register clothes
-                                    manager.AddClothes("new");
+                                    manager.AddClothes("new",0);
                                    
                                     break;
                                 case 3: // Register cosmetics
-                                    manager.AddCosmetic("new");
+                                    manager.AddCosmetic("new",0);
 
                                     break;
                                 case 4: // Register  food
-                                    manager.AddFood("new");
+                                    manager.AddFood("new",0);
 
                                     break;
                                 case 5: // list products/services
@@ -109,7 +112,7 @@ while (selectedOption != 6) // Main menu option
                         }
                         break;
                     case 2: // register a service
-                        manager.AddService("new");
+                        manager.AddService("new",0);
 
                         break;
                     case 3: // list products/services
@@ -171,7 +174,6 @@ while (selectedOption != 6) // Main menu option
             customerMenu.DisplayMenu();
             Console.Write("\nChoose an option from the list: ");
             customerOption = Int16.Parse(Console.ReadLine());
-
             while (customerOption != 5)// is option 5 is chosen then goes back to main menu
             {
                 switch (customerOption)
@@ -199,11 +201,6 @@ while (selectedOption != 6) // Main menu option
                 customerOption = Int16.Parse(Console.ReadLine());
             }
             break;
-        case 5: // Screen reports
-            Console.WriteLine();
-            Console.ReadLine();
-            break;
-
         default:
             Console.Write($"{selectedOption} is not a valid option!. Try again, press <enter> to continue... ");
             Console.ReadLine();

@@ -29,6 +29,9 @@ namespace FinalProject
         {
             _idCube = idCube;
         }
+        public int GetIdCube()
+        { return _idCube; }
+
         public Product(string name, string description, double price) // for service sub class
         {
             _name = name;
@@ -39,13 +42,9 @@ namespace FinalProject
         public override string ToString()
         {
             if (_idCube == 0)
-            {
                 return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}";
-            }
             else
-            {
                 return $"{_name} by {_brand}, {_description}, price ${_price}, stock: {_stock}, assigned cube: #{_idCube}";
-            }
         }
     }
 }
